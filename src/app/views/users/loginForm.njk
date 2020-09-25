@@ -1,0 +1,34 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+
+    <title>WebWheels - Login</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="card login-container">
+        <h1>Login</h1>
+        <h4>Digite suas credenciais para acessar o Site.</h4>
+        <form method="POST" action="/users/login">
+            <div class="login-fields">
+                <div>
+                    <i class="material-icons">person</i><input type="email" name="email" placeholder="Digite aqui o seu E-mail ...">
+                </div>
+                <div>
+                    <i class="material-icons">lock</i><input type="password" name="password" placeholder="Digite aqui a sua Senha ...">
+                </div>
+            </div>
+            <button type="submit" class="btn">
+                Entrar
+            </button>
+        </form>
+        
+        <div class="login-problem">
+            <p>Esqueceu a Senha? <a href="#">Clique aqui</a>!</p>
+            <p>Ainda não possui uma conta? <a href="#">Cadastre-se</a>.</p>
+        </div>
+    </div>
+
+{% endblock %}

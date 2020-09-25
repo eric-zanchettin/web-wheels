@@ -6,10 +6,13 @@
   "scripts": {
     "start": "npm-run-all -p nodemon browsersync",
     "nodemon": "nodemon server.js",
-    "browsersync": "browser-sync start --proxy http://localhost:3333 --files 'public,src/views'"
+    "browsersync": "browser-sync start --proxy http://localhost:3333 --files 'public,src/app/views'"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "connect-pg-simple": "^6.2.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "pg": "^8.3.3"
   },
   "devDependencies": {
     "browser-sync": "^2.26.12",

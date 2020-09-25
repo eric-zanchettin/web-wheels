@@ -1,0 +1,85 @@
+div.login-container h1 {
+    text-align: center;
+    padding-top: 64px;
+}
+
+div.login-container h4 {
+    text-align: center;
+    padding-bottom: 8px;
+
+    font-weight: 400;
+    color: rgb(165, 165, 165)
+}
+
+div.login-fields {
+    display: grid;
+    grid-template-columns: auto;
+
+    text-align: center;
+
+    margin-top: 64px;
+}
+
+div.login-fields input {
+    width: 400px;
+    height: 40px;
+
+    margin-top: 16px;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 8px -0.5px rgba(0, 0, 0, 0.5);
+
+    text-align: center;
+    font-size: 12pt;
+}
+
+button.btn {
+    position: relative;
+    
+    margin: 0;
+    left: 370px;
+    margin-top: 16px;
+    width: 64px;
+    height: 32px;
+    
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+
+    border-radius: 20px;
+    cursor: pointer;
+    transition: ease-in 0.4s;
+}
+
+button.btn:hover {
+    background-color: blue;
+    transition: ease-in 0.4s;
+}
+
+div.login-container p {
+    text-align: center;
+}
+
+div.login-problem {
+    margin-top: 32px;
+}
+
+div.login-problem a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+div.login-problem a:hover {
+    color: blue;
+}
+
+div.login-problem p {
+    padding-bottom: 160px;
+}
+
+div.login-problem p:nth-child(2) {
+    font-weight: bold;
+    font-size: 16pt;
+}

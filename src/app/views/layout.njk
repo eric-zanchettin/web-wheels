@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" text="css" href="/home.css">
+    <link rel="stylesheet" text="css" href="/layout.css">
+    <link rel="stylesheet" text="css" href="/users/login.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    {% block head %}
+
+    {% endblock %}
+
+</head>
+<body>
+
+    <nav>
+        <div class="menu">
+            <a href="/"><img src="/webwheels_logo.png" alt="WebWheels Logo"></a>
+            <ul>
+                <li><a href="#">Comprar</a></li>
+                <li><a href="#">Vender</a></li>
+                <div>
+                    <li><a href="/users/login">Entrar</a></li>
+                    <a href="/users/login"><i class="material-icons">login</i></a>
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+{% block content %}
+    
+{% endblock %}
+
+</body>
+</html>

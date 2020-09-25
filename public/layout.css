@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@200;400;700&display=swap');
+
+:root {
+    --primary-color: #5c74fd;
+}
+
+* {
+    font-family: Epilogue;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+div.card {
+    margin: 48px auto;
+    width: 800px;
+    height: 600px;
+
+    background-color: #F0F0F0;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px -0.4px rgba(0, 0, 0, 0.5);
+}
