@@ -1,0 +1,41 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+
+    <title>WebWheels - Registrar</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="card register-container">
+        <h1>Registrar</h1>
+        <h4>Para criar uma conta, preencha os campos abaixo:</h4>
+        <form method="POST" action="/users/register">
+            <div class="register-fields">
+                <div>
+                    <i class="material-icons">person</i><input type="text" name="name" placeholder="Informe seu nome ...">
+                </div>
+                <div>
+                    <i class="material-icons">cake</i><input type="date" name="birth_date" placeholder="Data de Nascimento ...">
+                </div>
+                <div>
+                    <i class="material-icons">email</i><input type="email" name="email" placeholder="Cadastre seu melhor E-mail ...">
+                </div>
+                <div>
+                    <i class="material-icons">note</i><input type="text" name="cpf_cnpj" placeholder="Insira seu CPF ...">
+                </div>
+                <div>
+                    <i class="material-icons">lock</i><input type="password" name="password" placeholder="Crie sua Senha ...">
+                </div>
+                <div>
+                    <i class="material-icons">repeat</i><input type="password" name="password_repeat" placeholder="Repita a Senha criada ...">
+                </div>
+            </div>
+            <button type="submit" class="btn">
+                Enviar
+            </button>
+        </form>
+    </div>
+
+{% endblock %}

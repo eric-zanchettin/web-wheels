@@ -7,6 +7,11 @@ const session = require('./config/session');
 server.use(express.static('public'));
 server.use(express.urlencoded({ extended: true }));
 server.use(session);
+server.use((req, res, next) => {
+    res.locals.session = req.session;
+
+    next()
+});
 
 server.set('view engine', 'njk');
 

@@ -36,7 +36,7 @@ div.menu a {
     font-weight: 400;
 }
 
-div.menu a:hover {
+div.menu a:hover, button#logout-btn:hover {
     color: var(--primary-color);
     text-decoration: underline;
     font-weight: 900;
@@ -55,4 +55,13 @@ div.home-container {
     margin: 48px 48px;
     border-radius: 60px;
 
+}
+
+button#logout-btn {
+    background-color:rgba(0, 0, 0, 0);
+    
+    color: #c0c0c0;
+    font-family: Epilogue;
+    font-size: 14pt;
+    font-weight: 400;
 }
