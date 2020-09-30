@@ -1,0 +1,34 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+
+    <title>WebWheels - Redefinir Senha</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="card login-container">
+        <h1>Redefinir Senha</h1>
+        <h4>Para alterar sua Senha, preencha os campos abaixo.</h4>
+        <form method="POST" action="/users/password-reset">
+            <div class="login-fields">
+                <div>
+                    <i class="material-icons">email</i><input type="email" name="email" placeholder="Confirme o E-mail que está trocando de senha ...">
+                </div>
+                <div>
+                    <i class="material-icons">lock</i><input type="password" name="password" placeholder="Digite aqui a sua nova Senha ...">
+                </div>
+                <div>
+                    <i class="material-icons">repeat</i><input type="password" name="passwordRepeat" placeholder="Repita a senha ...">
+                </div>
+                <div>
+                    <input type="hidden" name="token" value="{{ token }}">
+                </div>
+            </div>
+            <button type="submit" class="btn">
+                Alterar
+            </button>
+        </form>
+
+{% endblock %}

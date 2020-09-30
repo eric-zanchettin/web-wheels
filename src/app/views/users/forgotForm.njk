@@ -1,0 +1,27 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+
+    <title>WebWheels - Esqueci a Senha</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="card login-container">
+        <a href="/users/login"><i class="material-icons goback">keyboard_backspace</i></a>
+        <h1>Esqueci minha Senha</h1>
+        <h4>Informe seu E-mail para ajudarmos você à recuperar sua senha!</h4>
+        <form method="POST" action="/users/forgot-password">
+            <div class="login-fields">
+                <div>
+                    <i class="material-icons">email</i><input type="email" name="email" placeholder="Digite aqui o seu E-mail ...">
+                </div>
+            </div>
+            <button type="submit" class="btn forgot-password">
+                Recuperar Senha
+            </button>
+        </form>
+    </div>
+
+{% endblock %}

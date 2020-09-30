@@ -4,12 +4,7 @@ const { hash } = require('bcryptjs');
 module.exports = {
     async findOne(email) {
         const query = `
-            SELECT
-            id,
-            name,
-            email,
-            password
-            FROM users
+            SELECT * FROM users
             WHERE email ILIKE '${email}'
         `
 
@@ -47,5 +42,23 @@ module.exports = {
             console.log(err);
             return;
         };
+    },
+
+    async update(fields, id) {
+        const keys = Object.keys(fields);
+
+        let query = `UPDATE users
+            SET `
+
+        keys.map((key, index) => {
+            query += `${key} = '${fields[key]}'`
+            index != (keys.length - 1) ? query += ',' : query += '';
+        });
+
+        query += `WHERE id = ${id}`
+
+        await db.query(query);
+        
+        return;
     },
 };
