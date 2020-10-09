@@ -1,0 +1,47 @@
+div.submenu {
+    position: absolute;
+    top: 42px;
+    right: 4px;
+
+    padding: 14px;
+
+    background-color: #FDFDFD;
+    box-shadow: 1px 1px 12px -0.4px rgba(0, 0, 0, 0.5);
+}
+
+div.menu-decactive {
+    visibility: hidden;
+    opacity: 0;
+}
+
+div.submenu div {
+    padding: 10px 4px;
+    border-bottom: 1px dotted #dfdfdf;
+}
+
+div.submenu a.sub-link, div {
+    color: black;
+    text-decoration: none;
+    transition: 0.4s;
+}
+
+div.submenu a.sub-link div:hover, button#logout-btn:hover, form.logout-form:hover {
+    color: var(--primary-color);
+    background-color: #EEEEEE;
+
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+button#logout-btn {
+    background-color:rgba(0, 0, 0, 0);
+
+    width: 128px;
+
+    text-align: left;
+    
+    font-family: Epilogue;
+    font-size: 12pt;
+    font-weight: 400;
+    transition: 0.4s;
+}

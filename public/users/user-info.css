@@ -1,0 +1,155 @@
+div.welcome {
+    padding-top: 30px;
+    text-align: center;
+}
+
+/* MENU */
+
+div.user-info {
+    display: grid;
+    grid-template-columns: 300px auto;
+
+    width: 1200px;
+    height: 700px;
+}
+
+div.user-info ul {
+    list-style-type: none;
+    padding: 32px;
+
+    border-right: 2px dotted rgb(187, 187, 187);
+
+    height: 91%;
+}
+
+div.user-info ul li {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    margin-top: 48px;
+    top: 170px;
+}
+
+div.user-info ul h1 {
+    font-weight: 400;
+
+    transition: 0.3s;
+}
+
+div.user-info ul h1:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+    cursor: pointer;
+    
+    transition-duration: 0.3s;
+}
+
+/* INFO: MY ACCOUNT */
+
+div.user-info-fields {
+    text-align: center;
+}
+
+div.user-info-fields p {
+    padding-top: 20px;    
+    font-weight: 700;
+    font-size: 16pt;
+}
+
+div.user-info-fields input {
+    width: 150%;
+    height: 40px;
+
+    margin-top: 16px;
+
+    margin-left: 50px;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 8px -0.5px rgba(0, 0, 0, 0.5);
+
+    text-align: center;
+    font-size: 12pt;
+}
+
+div.user-info-fields div {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    width: auto;
+}
+
+div.group-field {
+    position: relative;
+    
+    top: 160px;
+}
+
+.inpt-blocked {
+    cursor: not-allowed;
+    color: gray;
+    background-color: #dbdbdbf9;
+}
+
+button.alter {
+    position: relative;
+    
+    margin: 0;
+    left: 415px;
+    margin-top: 30px;
+    width: 64px;
+    height: 32px;
+    
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+
+    border-radius: 20px;
+    cursor: pointer;
+    transition: ease-in 0.4s;
+}
+
+button.alter:hover {
+    background-color: blue;
+    transition: ease-in 0.4s;
+}
+
+div.form-hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: -1000px;
+}
+
+button.logout {
+    font-size: 24pt;
+    transition: ease-in 0.2s;
+}
+
+button.logout:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+    transition: ease-in 0.2s;
+}
+
+#change-password {
+    position: relative;
+    left: -226px;
+    top: 70px;
+
+    font-weight: 400;
+    font-size: 12pt;
+}
+
+#change-password a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+#change-password a:hover {
+    font-weight: bolder;
+    text-decoration: underline;   
+}

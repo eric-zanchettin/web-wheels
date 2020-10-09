@@ -2,11 +2,20 @@ const db = require('../../../config/db');
 const { hash } = require('bcryptjs');
 
 module.exports = {
-    async findOne(email) {
-        const query = `
-            SELECT * FROM users
-            WHERE email ILIKE '${email}'
-        `
+    async findOne(searchField) {
+        const keys = Object.keys(searchField);
+        let query = ``;
+
+        keys.map(key => {
+            let operator = ''
+
+            if (key == 'id' || key == 'birth_date') {
+                operator = '='
+            } else {
+                operator = 'ILIKE'
+            }
+            query = `SELECT * FROM users WHERE ${key} ${operator} '${searchField[key]}'`
+        })
 
         let results = await db.query(query);
 

@@ -23,6 +23,22 @@ ALTER TABLE session ADD CONSTRAINT session_pkey PRIMARY KEY (sid) NOT DEFERRABLE
 
 CREATE INDEX IDX_session_expire ON session(expire);
 
+-- CREATES THE USER ADRESS TABLE
+
+CREATE TABLE users_address (
+	id SERIAL PRIMARY KEY,
+  cep TEXT,
+  road TEXT,
+  neighborhood TEXT,
+  city TEXT,
+  complement TEXT,
+  reference TEXT,
+	user_id INT,
+  CONSTRAINT fk_user_id
+  	FOREIGN KEY(user_id)
+  		REFERENCES users(id)
+);
+
 -- RESTARTS SEQUENCE OF AN PRIMARY KEY
 
 ALTER SEQUENCE product_id_seq RESTART WITH 1453

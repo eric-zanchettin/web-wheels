@@ -30,6 +30,18 @@ const DateRelational = {
             console.log(err);
         };
     },
+
+    formatIso(date) {
+        const day = date.getUTCDate();
+        let month = (date.getUTCMonth()) + 1;
+        const year = date.getUTCFullYear();
+
+        month = String(month).length == 1 ? '0' + month : month;
+
+        const iso = year + '-' + month + '-' + day;
+
+        return iso;
+    },
 };
 
 module.exports = {

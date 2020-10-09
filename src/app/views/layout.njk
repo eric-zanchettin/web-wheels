@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" text="css" href="/home.css">
-    <link rel="stylesheet" text="css" href="/layout.css">
-    <link rel="stylesheet" text="css" href="/users/login.css">
-    <link rel="stylesheet" text="css" href="/users/register.css">
-    <link rel="stylesheet" text="css" href="/users/forgot-password.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    {% include "parts/styles.njk" %}
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     
     {% block head %}
@@ -23,21 +17,36 @@
         <div class="menu">
             <a href="/"><img src="/webwheels_logo.png" alt="WebWheels Logo"></a>
             <ul>
-                <li><a href="#">Comprar</a></li>
-                <li><a href="#">Vender</a></li>
+                <li><a class="menu-link" href="#">Comprar</a></li>
+                <li><a class="menu-link" href="#">Vender</a></li>
                 {% if not session.userId %}
                 <div>
                     <li>
-                        <a href="/users/login">Entrar<i class="material-icons">login</i></a>
+                        <a class="menu-link" href="/users/login">Entrar<i class="material-icons">login</i></a>
                     </li>
                 </div>
                 {% else %}
                 <div>
-                    <li>
-                        <form action="/users/logout" method="POST">
-                            <button id="logout-btn" type="submit">Sair<i class="material-icons">transit_enterexit</i></button>
-                        </form>
+                    <li class="account">
+                        <a class="menu-link" 
+                        onmouseout="menuScripts.decactiveSubmenu(this)"
+                        onmouseover="menuScripts.activeSubmenu(this)"
+                        href="/users/account/{{ session.userId }}">
+                            <i class="material-icons">account_circle</i>Conta
+                        </a>
                     </li>
+                    <div class="submenu menu-decactive" onmouseout="menuScripts.decactiveSubmenu(this)" onmouseover="menuScripts.activeSubmenu(this)">
+                        <a class="sub-link" href="/users/account/{{ session.userId }}"><div>Ver</div></a>
+                        <a class="sub-link" href="#"><div>Favoritos</div></a>
+                        <a class="sub-link" href="#"><div>Meus Anúncios</div></a>
+                        <a class="sub-link">
+                            <div>
+                                <form class="logout-form" action="/users/logout" method="POST">
+                                    <button id="logout-btn" type="submit">Sair</button>
+                                </form>
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 {% endif %}
             </ul>
@@ -47,6 +56,8 @@
 {% block content %}
     
 {% endblock %}
+
+<script src="/scripts.js"></script>
 
 </body>
 </html>

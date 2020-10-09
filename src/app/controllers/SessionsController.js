@@ -48,7 +48,7 @@ module.exports = {
             token_expiration: now,
         };
 
-        const result = await UserDB.findOne(req.body.email);
+        const result = await UserDB.findOne({ email: req.body.email });
         const userId = result.id;
 
         await UserDB.update(updateFields, userId);
@@ -74,7 +74,7 @@ module.exports = {
     async reset(req, res) {
         let { email, password } = req.body;
 
-        const result = await UserDB.findOne(email);
+        const result = await UserDB.findOne({ email });
         const userId = result.id;
 
         password = await hash(password, 8);

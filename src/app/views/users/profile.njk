@@ -1,0 +1,105 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+
+    <title>WebWheels - Minha Conta</title>
+
+{% endblock %}
+
+{% block content %}
+
+{% macro sidebar() %}
+<div class="user-menus">
+    <ul>
+        <li><h1><a onclick="myAccount.activeForm(this);">Minha Conta</a></h1></li>
+        <li ><h1><a onclick="myAccount.activeForm(this);">Endereço</a></h1></li>
+        <li><h1><form action="/users/logout" method="POST"><button class="logout" type="submit">Sair</button></form></h1></li>
+    </ul>
+</div>
+{% endmacro %}
+
+    <div class="welcome">
+        <h1>Olá, {{ userInfo.nickname }}</h1>
+    </div>
+
+        <div id="form0" class="card user-info">
+            {{ sidebar() }}
+            <form action="/users/account/{{ userInfo.id }}?_method=PUT" method="POST">
+                <div class="user-info-fields">
+                    <div class="group-field">
+                        <p>Nome:</p>
+                        <p>E-mail:</p>
+                        <div>
+                            <input type="text" name="name" value="{{ userInfo.name }}" placeholder="Digite seu nome completo ..." />
+                        </div>
+                        <div>
+                            <input class="inpt-blocked" type="email" value="{{ userInfo.email }}" placeholder="Digite seu melhor E-mail ..." disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="group-field">
+                        <p>Data de Nascimento:</p>
+                        <p>CPF/CNPJ:</p>
+                        <div>
+                            <input type="date" name="birth_date" value="{{ userInfo.birth_dateIso }}" placeholder="Informe sua data de nascimento ..." />
+                        </div>
+                        <div>
+                            <input type="text" name="cpf_cnpj" value="{{ userInfo.cpf_cnpj }}" placeholder="Digite seu CPF ou CNPJ ...">
+                        </div>
+                    </div>
+                    <div class="group-field">
+                        <p>Senha:</p>
+                        <p>Repetir Senha:</p>
+                        <div>
+                            <input type="password" name="password" placeholder="Digite sua senha para alterar o Cadastro ..." />
+                        </div>
+                        <div>
+                            <input type="password" name="passwordRepeat" placeholder="Confirme sua senha ..." />
+                        </div>
+                        <input type="hidden" name="form" value="basicInfo">
+                        <button class="alter">Alterar</button>
+                        <p id="change-password">Insatisfeito com sua senha? <a href="/users/password-change">Trocar Senha</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="form1" class="card user-info form-hidden" class="card user-info">
+            {{ sidebar() }}
+            <form {% if post %} action="/users/account/{{ userInfo.id }}" {% else %} action="/users/account/{{ userInfo.id }}?_method=PUT" {% endif %} method="POST">
+                <div class="user-info-fields">
+                    <div class="group-field">
+                        <p>CEP:</p>
+                        <p>Rua:</p>
+                        <div>
+                            <input type="text" name="cep" placeholder="Seu Código Postal ..." value="{{ userAddress.cep }}" />
+                        </div>
+                        <div>
+                            <input type="text" name="road" placeholder="O nome da sua Rua ..." value="{{ userAddress.road }}" />
+                        </div>
+                    </div>
+                    <div class="group-field">
+                        <p>Bairro:</p>
+                        <p>Estado e Cidade:</p>
+                        <div>
+                            <input type="text" name="neighborhood" placeholder="O nome do seu Bairro ..." value="{{ userAddress.neighborhood }}" />
+                        </div>
+                        <div>
+                            <input type="text" name="city" placeholder="Ex: São Paulo - SP" value="{{ userAddress.city }}">
+                        </div>
+                    </div>
+                    <div class="group-field">
+                        <p>Complemento:</p>
+                        <p>Ponto de Referência:</p>
+                        <div>
+                            <input type="text" name="complement" placeholder="Ex: Nº 322 / Apto. 74 / Casa ou Empresa ..." value="{{ userAddress.complement }}" />
+                        </div>
+                        <div>
+                            <input type="text" name="reference" placeholder="Ex: Próximo à Praça Juventude ..." value="{{ userAddress.reference }}" >
+                        </div>
+                        <input type="hidden" name="form" value="address">
+                        <button class="alter">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+{% endblock %}
