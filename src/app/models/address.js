@@ -1,5 +1,4 @@
 const db = require('../../../config/db');
-const { update } = require('./users');
 
 module.exports = {
     async findOne(searchField) {

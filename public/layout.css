@@ -23,8 +23,8 @@ div.card {
 
 i.goback {
     position: relative;
-    left: 30px;
-    top: 20px;
+    right: 580px;
+    top: 30px;
 
     color: var(--primary-color);
     font-size: 24pt;

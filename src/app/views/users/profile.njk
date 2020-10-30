@@ -43,7 +43,7 @@
                             <input type="date" name="birth_date" value="{{ userInfo.birth_dateIso }}" placeholder="Informe sua data de nascimento ..." />
                         </div>
                         <div>
-                            <input type="text" name="cpf_cnpj" value="{{ userInfo.cpf_cnpj }}" placeholder="Digite seu CPF ou CNPJ ...">
+                            <input type="text" name="cpf_cnpj" value="{{ userInfo.cpf_cnpj }}" placeholder="Digite seu CPF ou CNPJ ..." onkeydown="formatInputValues.applyFormat(this, 'formatCpfCnpj')">
                         </div>
                     </div>
                     <div class="group-field">
@@ -70,7 +70,7 @@
                         <p>CEP:</p>
                         <p>Rua:</p>
                         <div>
-                            <input type="text" name="cep" placeholder="Seu Código Postal ..." value="{{ userAddress.cep }}" />
+                            <input type="text" name="cep" placeholder="Seu Código Postal ..." value="{{ userAddress.cep }}" onkeydown="formatInputValues.applyFormat(this, 'formatCep')" />
                         </div>
                         <div>
                             <input type="text" name="road" placeholder="O nome da sua Rua ..." value="{{ userAddress.road }}" />

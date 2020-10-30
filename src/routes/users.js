@@ -3,6 +3,7 @@ const routes = express.Router();
 
 const SessionController = require('../app/controllers/SessionsController');
 const UsersController = require('../app/controllers/UsersController');
+const { onlyUsers } = require('../app/validators/sessions');
 
 const SessionValidator = require('../app/validators/sessions');
 const UserValidator = require('../app/validators/users');
@@ -29,11 +30,11 @@ routes.post('/logout', SessionController.logout);
 
 // USERS
 // PROFILE
-routes.get('/account/:id', UsersController.show);
+routes.get('/account/:id', onlyUsers, UserValidator.checkUserInfoId, UsersController.show);
 routes.post('/account/:id', UserValidator.post, UsersController.post);
 routes.put('/account/:id', UserValidator.put, UsersController.put);
 
-routes.get('/password-change/', UsersController.passwordChangeForm);
+routes.get('/password-change/', onlyUsers, UsersController.passwordChangeForm);
 routes.put('/password-change/', UserValidator.changePassword, UsersController.changePassword);
 
 module.exports = routes;

@@ -70,4 +70,11 @@ module.exports = {
         
         return;
     },
+
+    async findAll() {
+        const result = await db.query('SELECT * FROM users');
+        const usersInfo = result.rows;
+
+        return usersInfo;
+    },
 };

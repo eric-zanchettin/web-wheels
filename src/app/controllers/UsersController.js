@@ -76,4 +76,14 @@ module.exports = {
 
         return res.redirect('/users/login');
     },
+
+    async info(req, res) {
+        const info = await UserDB.findAll();
+
+        return await res.json(info);
+    },
+
+    infoTest(req, res) {
+        return res.render('users/test.njk');
+    },
 };

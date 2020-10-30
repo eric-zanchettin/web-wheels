@@ -77,4 +77,8 @@ module.exports = {
 
         next();
     },
+
+    async onlyUsers(req, res, next) {
+        (req.session.userId) ? next() : res.render('users/loginForm.njk');
+    },
 };

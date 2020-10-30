@@ -2,6 +2,12 @@ const { compare } = require('bcryptjs');
 const UsersDB = require('../models/users');
 
 module.exports = {
+    checkUserInfoId(req, res, next) {
+        if (req.session.userId != req.params.id) return res.redirect(`/users/account/${req.session.userId}`);
+
+        next();
+    },
+
     post(req, res, next) {
         const { cep, } = req.body
         

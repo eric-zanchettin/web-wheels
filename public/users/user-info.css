@@ -97,7 +97,7 @@ button.alter {
     position: relative;
     
     margin: 0;
-    left: 415px;
+    left: 445px;
     margin-top: 30px;
     width: 64px;
     height: 32px;
@@ -137,7 +137,7 @@ button.logout:hover {
 
 #change-password {
     position: relative;
-    left: -226px;
+    left: -250px;
     top: 70px;
 
     font-weight: 400;

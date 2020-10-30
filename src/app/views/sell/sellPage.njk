@@ -1,0 +1,273 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+
+    <title>WebWheels - Nova Venda</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <form action="/sell" method="POST" enctype="multipart/form-data">
+        <div class="card part1">
+            <h1>Cadastrando nova Venda</h1>
+            <h4>Ótimo! Vamos cadastrar sua venda? Para começar,<br/>precisaremos de algumas <b>Informações Básicas</b> sobre seu Veículo!</h4>
+            
+            <div class="selling-info">
+
+                <div class="fields car-name">
+                    <h3>Qual carro deseja Vender?</h3>
+                    <input
+                    class="inptFormat"
+                    type="text"
+                    name="car_model"
+                    id="car_model"
+                    placeholder="Comece a digitar e clique na Sugestão ..."
+                    autocomplete="off"
+                    onkeyup="carsData.filterCar(this.value)" />
+                </div>
+                <div class="fields color">
+                    <h3>Qual a Cor do seu Veículo?</h3>
+                    <select class="inptFormat" name="color" id="color" onchange="colorChange.previewBoxColor()">
+                        <option value="null" selected>--- SELECIONE UMA COR ---</option>
+                        <option value="Dourado">Amarelo/Dourado</option>
+                        <option value="Azul">Azul</option>
+                        <option value="Branco">Branco</option>
+                        <option value="Laranja">Laranja</option>
+                        <option value="Marrom">Marrom</option>
+                        <option value="Prata">Prata</option>
+                        <option value="Preto">Preto</option>
+                        <option value="Rosa">Rosa</option>
+                        <option value="Roxo">Roxo</option>
+                        <option value="Verde">Verde</option>
+                        <option value="Vermelho">Vermelho</option>
+                        <option value="Outra">Outras Cores</option>
+                    </select>
+                    <input type="color" name="color-preview" id="color-preview" value="#FFFFFF" disabled>
+                </div>
+                <div class="fields">
+                    <h3>Ano de Fabricação:</h3>
+                    <input class="inptFormat" type="number" name="year" id="year" placeholder="O Ano em que seu Carro foi Fabricado ..." min="1950" max={{ maxYear }}>
+                </div>
+                <div class="fields">
+                    <h3>Quilometragem:</h3>
+                    <input class="inptFormat" type="text" name="km" id="km" placeholder="Quantos KM rodados com seu carro ..." onkeydown="formatInputValues.applyFormat(this, 'formatKm')">
+                </div>
+                <div class="fields">
+                    <h3>Combustível:</h3>
+                    <select class="inptFormat" name="gas_type" id="gas_type">
+                        <option value="null" selected>--- SELECIONE O ABASTECIMENTO ---</option>
+                        <option value="Álcool">Álcool</option>
+                        <option value="Gasolina">Gasolina</option>
+                        <option value="Flex">Flex (Gasolina e Álcool)</option>
+                        <option value="GNV">GNV (Gás Natural Veicular)</option>
+                        <option value="Elétrico">Elétrico</option>
+                        <option value="Híbrido">Híbrido (Elétrico, Gasolina e Álcool)</option>
+                    </select>
+                </div>
+                <div class="fields">
+                    <h3>Final da Placa:</h3>
+                    <input class="inptFormat" type="number" name="plate_num" id="plate-num" placeholder="O último número da sua Placa ..." min="0" max="9">
+                </div>
+                <div class="fields">
+                    <h3>Carroceria:</h3>
+                    <select class="inptFormat" name="carType" id="carType">
+                        <option value="null" selected>--- SELECIONE UMA CARROCERIA ---</option>
+                        <option value="Hatchback">Hatch/Hatchback</option>
+                        <option value="Sedã">Sedã</option>
+                        <option value="Station Wagon">Perua/Station Wagon (SW)</option>
+                        <option value="Coupé">Coupé/Cupê</option>
+                        <option value="Conversível">Conversível</option>
+                        <option value="Minivan">Minivan</option>
+                        <option value="Limousine">Limousine</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Jipe">Jipe</option>
+                        <option value="Picape">Picape</option>
+                    </select>
+                </div>
+                <div class="fields">
+                    <h3>IPVA Pago?</h3>
+                    <div class="ipva radio">
+                        <input type="radio" name="ipva" id="ISim" value="Sim" checked /><label for="ISim">Sim</label>
+                        <input type="radio" name="ipva" id="INão" value="Não" /><label for="INão">Não</label>
+                    </div>
+                </div>
+                <div class="fields">
+                    <h3>Câmbio:</h3>
+                    <select class="inptFormat" name="cambium" id="cambium">
+                        <option value="null" selected>--- SELECIONE O TIPO DO CÂMBIO ---</option>
+                        <option value="Automático">Automático</option>
+                        <option value="Automatizada de dupla embreagem">Automatizada de dupla embreagem</option>
+                        <option value="CVT">CVT</option>
+                        <option value="Mecânica">Mecânica/Manual</option>
+                        <option value="Semi-Automático">Semi-Automático</option>
+                    </select>
+                </div>
+                <div class="fields">
+                    <h3>Único Dono?</h3>
+                    <div class="owner radio">
+                        <input type="radio" name="owner" id="OSim" value="Sim" checked /><label for="OSim">Sim</label>
+                        <input type="radio" name="owner" id="ONão" value="Não" /><label for="ONão">Não</label>
+                    </div>
+            </div>
+        </div>
+            <div class="arrows">
+                <div class="blocked">
+                    <i class="material-icons">arrow_back</i>
+                </div>
+                <div class="next">
+                    <i class="material-icons" onclick="sellingForm.nextForm('1')">arrow_forward</i>
+                </div>
+            </div>
+
+        <!-- FORM DIVIDE (pt. 1 to pt. 2) --> 
+
+    </div>
+
+        <div class="card part2 form-hidden">
+            <h1>Cadastrando nova Venda</h1>
+            <h4>Perfeito, estamos chegando lá! Nesta parte, gostaríamos<br/>que você <b>descrevesse</b> mais sobre o seu veículo ...</h4>
+            
+            <div class="selling-items">
+                <h3>Descrição do Veículo:</h3>
+                <textarea name="description" id="description" cols="30" rows="10" maxlength="1500"
+                placeholder="Algumas dicas: Informar sobre a documentação, em dia ou atrasada, ser transparente e repassar detalhes positivos e negativos como: carro bem cuidado, interior impecável, ou então, informar sobre batidas/arranhões, - os famosos detalhes - caso houver, problemas na suspensão etc ... Max.(1500)"></textarea>
+                
+                <h3>Itens:</h3>
+                <h4>Aqui você tem liberdade para escolher alguns itens que o seu carro<br/>possui e você pode adicionar todos os itens caso os tenha,<br/>mas não se esqueça de clicar no Botão <b>"+"</b> ao encontrar o item desejado:</h4>
+                <div class="add">
+                    <select name="itens-select" id="itens">
+                        <option value="null">---SELECIONE UM ITEM ---</option>
+                        <option value="Airbag">Airbag</option>
+                        <option value="Ar Condicionado">Ar Condicionado</option>
+                        <option value="Ar Quente">Ar Quente</option>
+                        <option value="Alarme">Alarme</option>
+                        <option value="Travas Elétricas">Travas Elétricas</option>
+                        <option value="Freio ABS">Freio ABS</option>
+                        <option value="GPS">GPS</option>
+                        <option value="Controle de Tração">Controle de Tração</option>
+                        <option value="Desembaçador Traseiro">Desembaçador Traseiro</option>
+                        <option value="Sensores de Estacionamento">Sensores de Estacionamento</option>
+                        <option value="Volante com Regulagem de Altura">Volante com Regulagem de Altura</option>
+                        <option value="Blindagem">Blindagem</option>
+                        <option value="Rádio MP3">Rádio MP3</option>
+                        <option value="Rádio Bluetooth">Rádio Bluetooth</option>
+                        <option value="Computador de Bordo">Computador de Bordo</option>
+                        <option value="Rodas de Liga Leve">Rodas de Liga Leve</option>
+                    </select>
+                    <i class="material-icons add-box">add_box</i>
+                    <div class="itens-container"></div>
+                    <p id="removal">À medida que você for adicionando os Itens,<br/>os mesmos irão aparecer por aqui ...</p>
+                    <input type="hidden" name="itens_array" />
+                </div>
+            </div>
+            <div class="arrows">
+                <div class="previous">
+                    <i class="material-icons" onclick="sellingForm.previousForm('2')">arrow_back</i>
+                </div>
+                <div class="next">
+                    <i class="material-icons" onclick="sellingForm.nextForm('2')">arrow_forward</i>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM DIVIDE (pt. 2 to pt. 3) --> 
+
+        <div class="card part3 form-hidden">
+            <h1>Cadastrando nova Venda</h1>
+            <h4>Agora falta pouco 😁. Para deixarmos seu anúncio mais bonito,<br/>precisamos de algumas fotos do seu potente!
+            Seria interessante fotografar o<br/>interior e o exterior, além do mais, recomendamos cerca de 6 Fotos.</h4>
+
+            <div class="border">
+                <input type="file" name="photos" id="photos" multiple accept="image/*" onchange="handleImage.startPreview(event)" />
+                <div>
+                    Escolher Arquivos
+                    <i class="material-icons">add_photo_alternate</i>
+                </div>
+            </div>
+            <div class="preview-images">
+                    
+            </div>
+            <div class="arrows">
+                <div class="previous">
+                    <i class="material-icons" onclick="sellingForm.previousForm('3')">arrow_back</i>
+                </div>
+                <div class="next">
+                    <i class="material-icons" onclick="sellingForm.nextForm('3')">arrow_forward</i>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM DIVIDE (pt. 3 to pt. 4) --> 
+
+        <div class="card part4 form-hidden">
+            <h1>Cadastrando nova Venda</h1>
+            <h4>Beleza, prometemos que esta é a última telinha antes de anunciarmos seu carrão!<br/>Nesta parte, gostariamos de informações de contato com você ... Indique para nós aonde seu carro<br/>encontra-se disponível para eventuais visitas e até concretização da venda,<br/>seu telefone, e claro, o preço do anúncio!</h4>
+
+            <div class="selling-info">
+
+                <div class="fields">
+                    <h3>CEP:</h3>
+                    <input class="inptFormat" type="text" name="cep" id="cep" value="{{ userAddress.cep }}" placeholder="Seu Código Postal ..." onkeydown="formatInputValues.applyFormat(this, 'formatCep')" />
+                </div>
+
+                <div class="fields">
+                    <h3>Rua:</h3>
+                    <input class="inptFormat" type="text" name="road" id="road" value="{{ userAddress.road }}" placeholder="O nome da sua Rua ..." />
+                </div>
+
+                <div class="fields">
+                    <h3>Bairro:</h3>
+                    <input class="inptFormat" type="text" name="neighborhood" id="neighborhood" value="{{ userAddress.neighborhood }}" placeholder="O nome do seu Bairro ..." />
+                </div>
+
+                <div class="fields">
+                    <h3>Estado e Cidade:</h3>
+                    <input class="inptFormat" type="text" name="city" id="city" value="{{ userAddress.city }}" placeholder="Ex: São Paulo - SP" />
+                </div>
+
+                <div class="fields">
+                    <h3>Complemento:</h3>
+                    <input class="inptFormat" type="text" name="complement" id="complement" value="{{ userAddress.complement }}" placeholder="Ex: Nº 322 / Apto. 74 / Casa ou Empresa ..." />
+                </div>
+
+                <div class="fields">
+                    <h3>Referência:</h3>
+                    <input class="inptFormat" type="text" name="reference" id="reference" value="{{ userAddress.reference }}" placeholder="Ex: Próximo à Praça Juventude ..."  />
+                </div>
+
+                <div class="fields">
+                    <h3>Telefone para Contato:</h3>
+                    <input class="inptFormat" type="text" name="phone" id="phone" placeholder="Seu melhor telefone/celular ..." onkeydown="formatInputValues.applyFormat(this, 'formatPhone')" />
+                </div>
+
+                <div class="fields">
+                    <h3>Preço do Anúncio:</h3>
+                    <input class="inptFormat" type="text" name="price" id="price" placeholder="O preço do seu veículo ..." onkeydown="formatInputValues.applyFormat(this, 'formatPrice')" />
+                </div>
+
+                <div class="dynamic-update">
+                    <input type="hidden" name="adressAvailabilityCheck" id="adress-availability-check" value="{{ userAddress.cep }}" />
+                    <input type="hidden" name="updateOrNot" id="updateOrNot" value="0" />
+                </div>
+
+                <div>
+                    <button class="btn sell" type="submit" onclick="changedCep.ask()">Vender Agora</button>
+                </div>
+
+            </div>
+            <div class="arrows">
+                <div class="previous">
+                    <i class="material-icons" onclick="sellingForm.previousForm('4')">arrow_back</i>
+                </div>
+                <div class="blocked">
+                    <i class="material-icons">arrow_forward</i>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/carsData.js"></script>
+
+{% endblock %}
