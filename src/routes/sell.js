@@ -11,4 +11,8 @@ const SellValidator = require('../app/validators/sell');
 routes.get('/', onlyUsers, SellController.sellPage);
 routes.post('/', onlyUsers, multer.array('photos', 6), SellValidator.sellPost, SellController.sellPost);
 
+// SHOW SELLING CAR
+
+routes.get('/car/:id', SellController.show);
+
 module.exports = routes;

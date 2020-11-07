@@ -44,6 +44,24 @@ const DateRelational = {
     },
 };
 
+const formatData = {
+    formatKm(km) {
+        km = String(km);
+
+        if (km.length <= 3) km = km.replace(/(\d{1,3})/, '$1 m');
+        if (km.length > 3 && km.length <= 6) km = km.replace(/(\d{1,3})(\d{3})/, '$1.$2 Km');
+        
+        return km;
+    },
+
+    formatPrice(price) {
+        price = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price/100)
+        
+        return price;
+    },
+};
+
 module.exports = {
     DateRelational,
+    formatData,
 };

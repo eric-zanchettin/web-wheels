@@ -110,3 +110,94 @@ const sellingForm = {
         activePreviousForm.classList.remove('form-hidden');
     },
 };
+
+const controlCarousel = {
+    carouselIndex: document.querySelector('#carouselValue'),
+    imgAmmount: document.querySelector('.img-carousel'),
+    modalOverlay: document.querySelector('.modal-overlay'),
+    modalImg: document.querySelector('.modal-overlay div img'),
+    forward(event) {
+        if (this.limitReached(event, 1)) return;
+
+        this.changeViewIndex(1);
+
+        this.movementImgs(1);
+
+        this.disableArrows
+    },
+
+    backward(event) {
+        if (this.limitReached(event, -1)) return;
+
+        this.changeViewIndex(-1);
+
+        this.movementImgs(-1);
+    },
+
+    limitReached(event, way) {
+        let indexCorrection = (this.imgAmmount.childElementCount == 6 ? 1 : 0);
+        let actualIndex = Math.ceil(this.carouselIndex.value);
+        let imgAmmount = this.imgAmmount.childElementCount;
+        
+        if (way == 1) {
+            if (actualIndex == imgAmmount) {
+                this.disableArrows(event);
+                return true;
+            };
+        } else {
+            if (actualIndex == ((Math.ceil(imgAmmount / 2)) - indexCorrection)) {
+                this.disableArrows(event);
+                return true;
+            };
+        };
+    },
+
+    changeViewIndex(x) {
+        let index = 0
+        
+        if (x == 1) {
+            index = (Math.ceil(this.carouselIndex.value) + 1);
+        } else {
+            index = (Math.ceil(this.carouselIndex.value) - 1);
+        };
+        
+        this.carouselIndex.value = index;
+    },
+
+    movementImgs(x) {
+        if (x == 1) {
+            for (img of this.imgAmmount.children) {
+                let actualLeft = Number(getComputedStyle(img).left.replace('px', ''));
+                let movement = actualLeft + (-600)
+                img.style.left = `${movement}px`
+            };
+        } else {
+            for (img of this.imgAmmount.children) {
+                let actualLeft = Number(getComputedStyle(img).left.replace('px', ''));
+                let movement = actualLeft + (600)
+                img.style.left = `${movement}px`
+            };
+        };
+    },
+
+    disableArrows(arrow) {
+        const arrowParent = document.querySelector('.control-carousel');
+
+        arrowParent.classList.add('not-allowed');
+        arrow.target.classList.add('not-allowed');
+
+        setTimeout(() => {
+            arrowParent.classList.remove('not-allowed');
+            arrow.target.classList.remove('not-allowed');
+        }, 700);
+    },
+
+    fullscreen(event) {
+        this.modalImg.src = event.target.src;
+        this.modalOverlay.style.display = 'block';
+    },
+
+    closeFullscreen() {
+        this.modalOverlay.style.display = 'none';
+    },
+};

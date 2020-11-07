@@ -1,0 +1,197 @@
+body {
+    overflow-x: hidden;
+}
+
+div.img-carousel {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+
+    width: auto;
+    height: 360px;
+}
+
+div.img-carousel img {
+    position: relative;
+    left: 0px;
+    right: 0px;
+
+    object-fit: cover;
+
+    width: 600px;
+    height: 360px;
+
+    box-shadow: 2px 2px 12px -0.4px rgba(0, 0, 0, 0.5);
+
+    transition: 0.5s;
+}
+
+div.card-master {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+div.sale-card, div.sale-itens {
+    position: relative;
+    top: -50px;
+
+    margin: auto;
+    padding: 32px;
+    width: 90%;
+    height: auto;
+
+    background-color: #F0F0F0;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px -0.4px rgba(0, 0, 0, 0.5);
+}
+
+.sale-contact {
+    position: relative;
+    top: -50px;
+
+    margin: auto;
+    padding: 32px;
+    width: 80%;
+    height: auto;
+
+    background-color: #F0F0F0;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px -0.4px rgba(0, 0, 0, 0.5);
+}
+
+div.sale-card h1 {
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding-bottom: 24px;
+}
+
+div.sale-card h1 span {
+    color: var(--primary-color)
+}
+
+div.ord-itens {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+div.ord-itens div {
+    padding-bottom: 20px;
+}
+
+div.ord-itens div h6, div.card-part2 h6, div.sale-itens h6 {
+    font-weight: normal;
+    font-size: 11pt;
+    color: rgb(170, 170, 170);
+
+    padding-bottom: 6px;
+}
+
+div.ord-itens h4 {
+    font-size: 14pt;
+}
+
+div.sale-card div.card-part1 {
+    display: grid;
+    border-bottom: 1px solid rgb(207, 207, 207);
+}
+
+div.card-part2 {
+    margin-top: 24px;
+}
+
+div.card-part2 p {
+    font-size: 13pt;
+}
+
+div.sale-contact {
+    text-align: center;
+}
+
+div.sale-contact input {
+    width: 100%;
+    height: 40px;
+
+    margin-top: 16px;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 8px -0.5px rgba(0, 0, 0, 0.5);
+
+    text-align: center;
+    font-size: 12pt;
+}
+
+#message {
+    width: 100%;
+    height: 140px;
+
+    margin-top: 8px;
+    padding-top: 20px;
+
+    text-align: center;
+    font-size: 14pt;
+
+    resize: none;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 8px -0.5px rgba(0, 0, 0, 0.5);
+}
+
+div.sale-itens h6 {
+    padding-bottom: 24px;
+}
+
+div.itens {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+div.itens span {
+    padding-bottom: 18px;
+    width: 150px;
+    font-weight: bold;
+}
+
+div.control-carousel {
+    position: relative;
+    top: -180px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+div.control-carousel i {
+    position: relative;
+    color: var(--primary-color);
+    background-color: white;
+
+    border-radius: 50px;
+    margin: 0 24px;
+}
+
+div.control-carousel i:hover {
+    color: white;
+    background-color: var(--primary-color);
+    
+    cursor: pointer;
+}
+
+@keyframes glitchy {
+    0% {top: 8px;}
+    20% {top: 0px; right: 8px;}
+    40% {top: -8px;}
+    60% {right: -8px;}
+    80% {right: 0px; top: -8px;}
+    100% {right: 8px;}
+}
+
+div.not-allowed > i.not-allowed {
+    cursor: not-allowed;
+
+    color: white;
+    background-color: #ff6666;
+
+    animation: glitchy 0.15s;
+    animation-timing-function: ease-in-out;
+}

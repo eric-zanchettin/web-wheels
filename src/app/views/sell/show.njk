@@ -1,0 +1,106 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>WebWheels - {{ carInfo.car_model }} {{ carInfo.car_year }}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="modal-overlay">
+        <div>
+            <i class="material-icons" onclick="controlCarousel.closeFullscreen()">close</i>
+            <img src="" alt="Falha ao carregar foto em tela cheia!">
+        </div>
+    </div>
+    <div class="img-carousel">
+        {% for photo in carPhotos %}
+            <img src="{{ photo.path }}" alt="Foto de {{ carInfo.car_model }} - {{ carInfo.car_year }}" onclick="controlCarousel.fullscreen(event)">
+        {% endfor %}
+    </div>
+    {% if carPhotos|length > 3 %}
+        <div class="control-carousel">
+            <i class="material-icons" onclick="controlCarousel.backward(event)">arrow_back</i>
+            <i class="material-icons" onclick="controlCarousel.forward(event)">arrow_forward</i>
+        </div>
+        <input type="hidden" name="carouselValue" id="carouselValue" value="{{ (carPhotos|length / 2) + 1 }}">
+    {% endif %}
+    <div class="card-master">
+        <div class="sale-card">
+            <div class="card-part1">
+                <h1>{{ carInfo.carFabric }} <span>{{ carInfo.carName}}</span></h1>
+
+                <div class="ord-itens">
+                    <div>
+                        <h6>Ano</h6>
+                        <h4>{{ carInfo.car_year }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>KM</h6>
+                        <h4>{{ carInfo.km }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>Câmbio</h6>
+                        <h4>{{ carInfo.cambium }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>Carroceria</h6>
+                        <h4>{{ carInfo.car_type }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>Combustível</h6>
+                        <h4>{{ carInfo.gas_type }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>Final da Placa</h6>
+                        <h4>{{ carInfo.plate_num }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>Cor</h6>
+                        <h4>{{ carInfo.color }}</h4>
+                    </div>
+
+                    <div>
+                        <h6>IPVA Pago?</h6>
+                        <h4>{{ carInfo.ipva }}</h4>
+                    </div> 
+
+                    <div>
+                        <h6>Único Dono?</h6>
+                        <h4>{{ carInfo.owner }}</h4>
+                    </div>     
+                </div>
+            </div>
+
+            <div class="card-part2">
+                <h6>Descrição do Carro</h6>
+                <p>{{ carInfo.description }}</p>
+            </div>
+        </div>
+
+        <div class="sale-contact">
+            <form action="">
+                <h1>{{ carInfo.price }}</h1>
+                <p>Abrir uma Conversa com o(a) Vendedor(a):<br><b>{{ carInfo.name }}, {{ carInfo.city }}</b></p>
+                <input type="name" id="name" placeholder="SEU NOME ..."/>
+                <input type="email" id="email" placeholder="SEU E-MAIL ..."/>
+                <input type="text" id="phone" placeholder="SEU TELEFONE ..."/>
+                <textarea name="message" id="message" cols="30" rows="10" maxlength="1500" placeholder="Personalize uma mensagem para o vendedor (Max.1500)"></textarea>
+            </form>
+        </div>
+
+        <div class="sale-itens">
+            <h6>Itens do Veículo</h6>
+            <div class="itens">
+                {% for item in carInfo.itens %}
+                    <span>{{ item }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

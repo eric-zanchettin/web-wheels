@@ -33,6 +33,7 @@ CREATE TABLE users_address (
   city TEXT,
   complement TEXT,
   reference TEXT,
+  phone TEXT,
 	user_id INT,
   CONSTRAINT fk_user_id
   	FOREIGN KEY(user_id)
@@ -55,6 +56,37 @@ CREATE TABLE models (
   CONSTRAINT fk_fabric_id
   	FOREIGN KEY(fabric_id)
   		REFERENCES fabricators(id)
+)
+
+CREATE TABLE car_ads (
+  id SERIAL PRIMARY KEY,
+  car_model TEXT,
+  car_year INT,
+  gas_type TEXT,
+  car_type TEXT,
+  cambium TEXT,
+  color TEXT,
+  km INT,
+  plate_num INT,
+  ipva BOOLEAN,
+  owner BOOLEAN,
+  description TEXT,
+  itens TEXT,
+  price INT,
+  user_id INT,
+  CONSTRAINT fk_user_id
+    FOREIGN KEY(user_id)
+      REFERENCES users(id)
+)
+
+CREATE TABLE car_photos (
+  id SERIAL PRIMARY KEY,
+  file_name TEXT,
+  path TEXT,
+  ad_id INT,
+  CONSTRAINT fk_ad_id
+    FOREIGN KEY(ad_id)
+      REFERENCES car_ads(id)
 )
 
 -- RESTARTS SEQUENCE OF AN PRIMARY KEY

@@ -1,11 +1,8 @@
-const api = require('../models/api');
 let apiDB = require('../models/api');
 
 module.exports = {
     async sellPost(req, res, next) {
-        let { car_model, color, year, km, gas_type, plate_num, carType, ipva, cambium, owner,
-            description, itens_array, cep, road, neighborhood, city, complement, reference,
-            phone, price, updateOrNot } = req.body;
+        let { car_model, year, plate_num, } = req.body;
 
         let avaliableCars = await apiDB.findAll();
         let carsList = avaliableCars.map(car => {
@@ -22,7 +19,11 @@ module.exports = {
 
         if (carsList.indexOf(car_model) == -1) return res.send('Sorry but this car does not exists in our database!');
 
-        if (year < 1950 || year > 2020) return res.send('Sorry, your vehicle needs to be produced between 1950 and 2020');
+        let actual = new Date()
+        if (year < 1950 || year > actual.getUTCFullYear()) return res.send('Sorry, your vehicle needs to be produced between 1950 and 2020');
 
+        if (plate_num < 0 || plate_num > 9) return res.send("We need only the final number of your car's plate");
+
+        next();
     },
 };
