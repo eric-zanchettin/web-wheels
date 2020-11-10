@@ -2,14 +2,16 @@ const SellDB = require('../models/sell');
 const AddressDB = require('../models/address');
 const FileDB = require('../models/files');
 
-const { formatData } = require('../../lib/utils');
+const utils = require('../../lib/utils');
 
 module.exports = {
     async sellPage(req, res) {
         const fabricators = await SellDB.getFabricators();
         const models = await SellDB.getModels();
         const maxYear = new Date().getUTCFullYear();
-        const userAddress = await AddressDB.findOne({ user_id: req.session.userId });
+        let userAddress = await AddressDB.findOne({ user_id: req.session.userId });
+
+        userAddress = utils.formatData.formatUserInfo(userAddress);
         
         return res.render('sell/sellPage.njk', { fabricators, models, maxYear, userAddress });
     },
@@ -86,31 +88,20 @@ module.exports = {
 
     async show(req, res) {
         let carAd = await SellDB.getAdById(req.params.id);
-
-        if (!carAd) return res.send('Ad not found!');
-
         let carPhotos = await FileDB.getPhotosByAdId(req.params.id);
-        
-        let { car_model, km, itens_array, ipva, owner, price, } = carAd;
-        let carFabric = car_model.split(' ')[0];
-        let carName = car_model.split(' ')[1];
-
-        ipva ? ipva = 'Sim' : ipva = 'Não';
-        owner ? owner = 'Sim' : owner = 'Não';
-        km = formatData.formatKm(km);
-        price = formatData.formatPrice(price);
-
-        let carInfo = {
-            ...carAd,
-            itens: itens_array.split(','),
-            carFabric,
-            carName,
-            ipva,
-            owner,
-            price,
-            km,
-        };
+        let carInfo = utils.formatData.formatAdInfo(carAd);
 
         return res.render('sell/show.njk', { carInfo, carPhotos });
+    },
+
+    async editForm(req, res) {
+        let carAd = await SellDB.getAdById(req.params.id);
+        let carPhotos = await FileDB.getPhotosByAdId(req.params.id);
+        let carInfo = utils.formatData.formatAdInfo(carAd);
+        const maxYear = new Date().getUTCFullYear();
+        let userAddress = await AddressDB.findOne({ user_id: `${carAd.user_id}` });
+        userAddress = utils.formatData.formatUserInfo(userAddress)
+
+        return res.render('sell/editForm.njk', { carInfo, carPhotos, maxYear, userAddress });
     },
 };

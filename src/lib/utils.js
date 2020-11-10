@@ -55,9 +55,60 @@ const formatData = {
     },
 
     formatPrice(price) {
-        price = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price/100)
+        price = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price/100);
         
         return price;
+    },
+
+    formatCep(cep) {
+        cep = cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+
+        return cep;
+    },
+
+    formatPhone(phone) {
+        phone = phone.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+
+        return phone;
+    },
+
+    formatAdInfo(adInfo) {
+        let { car_model, km, itens_array, ipva, owner, price, } = adInfo;
+        let carFabric = car_model.split(' ')[0];
+        let carName = car_model.split(' ')[1];
+
+        ipva ? ipva = 'Sim' : ipva = 'Não';
+        owner ? owner = 'Sim' : owner = 'Não';
+        km = formatData.formatKm(km);
+        price = formatData.formatPrice(price);
+
+        let carInfo = {
+            ...adInfo,
+            itens: itens_array.split(','),
+            carFabric,
+            carName,
+            ipva,
+            owner,
+            price,
+            km,
+        };
+
+        return carInfo;
+    },
+
+    formatUserInfo(userInfo) {
+        let { phone, cep } = userInfo;
+
+        cep = formatData.formatCep(cep);
+        phone = formatData.formatPhone(phone);
+
+        const formattedUserInfo = {
+            ...userInfo,
+            phone,
+            cep,
+        };
+
+        return formattedUserInfo;
     },
 };
 

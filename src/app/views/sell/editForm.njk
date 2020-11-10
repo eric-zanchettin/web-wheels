@@ -2,7 +2,7 @@
 
 {% block head %}
 
-    <title>WebWheels - Nova Venda</title>
+    <title>WebWheels - Editando Anúncio</title>
 
 {% endblock %}
 
@@ -10,104 +10,105 @@
 
     <form action="/sell" method="POST" enctype="multipart/form-data">
         <div class="card part1">
-            <h1>Cadastrando nova Venda</h1>
-            <h4>Ótimo! Vamos cadastrar sua venda? Para começar,<br/>precisaremos de algumas <b>Informações Básicas</b> sobre seu Veículo!</h4>
+            <h1>Editando Anúncio para:</h1>
+            <span>{{ carInfo.carFabric }} </span><span>{{ carInfo.carName }}</span>
+            <h4>Precisa revisar algum dos detalhes informados? Prossiga com as mudanças:</h4>
             
             <div class="selling-info">
 
                 <div class="fields car-name">
                     <h3>Qual carro deseja Vender?</h3>
                     <input
-                    class="inptFormat"
+                    class="inptFormat inpt-blocked"
                     type="text"
                     name="car_model"
                     id="car_model"
-                    placeholder="Comece a digitar e clique na Sugestão ..."
+                    placeholder="{{ carInfo.car_model }}"
                     autocomplete="off"
-                    onkeyup="carsData.filterCar(this.value)" />
+                    disabled/>
                 </div>
                 <div class="fields color">
                     <h3>Qual a Cor do seu Veículo?</h3>
                     <select class="inptFormat" name="color" id="color" onchange="colorChange.previewBoxColor()">
-                        <option value="null" selected>--- SELECIONE UMA COR ---</option>
-                        <option value="Dourado">Amarelo/Dourado</option>
-                        <option value="Azul">Azul</option>
-                        <option value="Branco">Branco</option>
-                        <option value="Laranja">Laranja</option>
-                        <option value="Marrom">Marrom</option>
-                        <option value="Prata">Prata</option>
-                        <option value="Preto">Preto</option>
-                        <option value="Rosa">Rosa</option>
-                        <option value="Roxo">Roxo</option>
-                        <option value="Verde">Verde</option>
-                        <option value="Vermelho">Vermelho</option>
-                        <option value="Outra">Outras Cores</option>
+                        <option value="null">--- SELECIONE UMA COR ---</option>
+                        <option value="Dourado" {% if carInfo.color == 'Dourado' %} selected {% endif %}>Amarelo/Dourado</option>
+                        <option value="Azul" {% if carInfo.color == 'Azul' %} selected {% endif %}>Azul</option>
+                        <option value="Branco" {% if carInfo.color == 'Branco' %} selected {% endif %}>Branco</option>
+                        <option value="Laranja" {% if carInfo.color == 'Laranja' %} selected {% endif %}>Laranja</option>
+                        <option value="Marrom" {% if carInfo.color == 'Marrom' %} selected {% endif %}>Marrom</option>
+                        <option value="Prata" {% if carInfo.color == 'Prata' %} selected {% endif %}>Prata</option>
+                        <option value="Preto" {% if carInfo.color == 'Preto' %} selected {% endif %}>Preto</option>
+                        <option value="Rosa" {% if carInfo.color == 'Rosa' %} selected {% endif %}>Rosa</option>
+                        <option value="Roxo" {% if carInfo.color == 'Roxo' %} selected {% endif %}>Roxo</option>
+                        <option value="Verde" {% if carInfo.color == 'Verde' %} selected {% endif %}>Verde</option>
+                        <option value="Vermelho" {% if carInfo.color == 'Vermelho' %} selected {% endif %}>Vermelho</option>
+                        <option value="Outra" {% if carInfo.color == 'Outra' %} selected {% endif %}>Outras Cores</option>
                     </select>
                     <input type="color" name="color-preview" id="color-preview" value="#FFFFFF" disabled>
                 </div>
                 <div class="fields">
                     <h3>Ano de Fabricação:</h3>
-                    <input class="inptFormat" type="number" name="car_year" id="car_year" placeholder="O Ano em que seu Carro foi Fabricado ..." min="1950" max={{ maxYear }}>
+                    <input class="inptFormat" type="number" name="car_year" id="car_year" placeholder="O Ano em que seu Carro foi Fabricado ..." min="1950" max="{{ maxYear }}" value="{{ carInfo.car_year }}">
                 </div>
                 <div class="fields">
                     <h3>Quilometragem:</h3>
-                    <input class="inptFormat" type="text" name="km" id="km" placeholder="Quantos KM rodados com seu carro ..." onkeydown="formatInputValues.applyFormat(this, 'formatKm')">
+                    <input class="inptFormat" type="text" name="km" id="km" placeholder="Quantos KM rodados com seu carro ..." value="{{ carInfo.km }}" onkeydown="formatInputValues.applyFormat(this, 'formatKm')">
                 </div>
                 <div class="fields">
                     <h3>Combustível:</h3>
                     <select class="inptFormat" name="gas_type" id="gas_type">
-                        <option value="null" selected>--- SELECIONE O ABASTECIMENTO ---</option>
-                        <option value="Álcool">Álcool</option>
-                        <option value="Gasolina">Gasolina</option>
-                        <option value="Flex">Flex (Gasolina e Álcool)</option>
-                        <option value="GNV">GNV (Gás Natural Veicular)</option>
-                        <option value="Elétrico">Elétrico</option>
-                        <option value="Híbrido">Híbrido (Elétrico, Gasolina e Álcool)</option>
+                        <option value="null" >--- SELECIONE O ABASTECIMENTO ---</option>
+                        <option value="Álcool" {% if carInfo.gas_type == 'Álcool' %} selected {% endif %}>Álcool</option>
+                        <option value="Gasolina" {% if carInfo.gas_type == 'Gasolina' %} selected {% endif %}>Gasolina</option>
+                        <option value="Flex" {% if carInfo.gas_type == 'Flex' %} selected {% endif %}>Flex (Gasolina e Álcool)</option>
+                        <option value="GNV" {% if carInfo.gas_type == 'GNV' %} selected {% endif %}>GNV (Gás Natural Veicular)</option>
+                        <option value="Elétrico" {% if carInfo.gas_type == 'Elétrico' %} selected {% endif %}>Elétrico</option>
+                        <option value="Híbrido" {% if carInfo.gas_type == 'Híbrido' %} selected {% endif %}>Híbrido (Elétrico, Gasolina e Álcool)</option>
                     </select>
                 </div>
                 <div class="fields">
                     <h3>Final da Placa:</h3>
-                    <input class="inptFormat" type="number" name="plate_num" id="plate-num" placeholder="O último número da sua Placa ..." min="0" max="9">
+                    <input class="inptFormat" type="number" name="plate_num" id="plate-num" placeholder="O último número da sua Placa ..." min="0" max="9" value="{{ carInfo.plate_num }}">
                 </div>
                 <div class="fields">
                     <h3>Carroceria:</h3>
                     <select class="inptFormat" name="car_type" id="car_type">
-                        <option value="null" selected>--- SELECIONE UMA CARROCERIA ---</option>
-                        <option value="Hatchback">Hatch/Hatchback</option>
-                        <option value="Sedã">Sedã</option>
-                        <option value="Station Wagon">Perua/Station Wagon (SW)</option>
-                        <option value="Coupé">Coupé/Cupê</option>
-                        <option value="Conversível">Conversível</option>
-                        <option value="Minivan">Minivan</option>
-                        <option value="Limousine">Limousine</option>
-                        <option value="SUV">SUV</option>
-                        <option value="Jipe">Jipe</option>
-                        <option value="Picape">Picape</option>
+                        <option value="null">--- SELECIONE UMA CARROCERIA ---</option>
+                        <option value="Hatchback" {% if carInfo.car_type == 'Hatchback' %} selected {% endif %}>Hatch/Hatchback</option>
+                        <option value="Sedã" {% if carInfo.car_type == 'Sedã' %} selected {% endif %}>Sedã</option>
+                        <option value="Station Wagon" {% if carInfo.car_type == 'Station Wagon' %} selected {% endif %}>Perua/Station Wagon (SW)</option>
+                        <option value="Coupé" {% if carInfo.car_type == 'Coupé' %} selected {% endif %}>Coupé/Cupê</option>
+                        <option value="Conversível" {% if carInfo.car_type == 'Conversível' %} selected {% endif %}>Conversível</option>
+                        <option value="Minivan" {% if carInfo.car_type == 'Minivan' %} selected {% endif %}>Minivan</option>
+                        <option value="Limousine" {% if carInfo.car_type == 'Limousine' %} selected {% endif %}>Limousine</option>
+                        <option value="SUV" {% if carInfo.car_type == 'SUV' %} selected {% endif %}>SUV</option>
+                        <option value="Jipe" {% if carInfo.car_type == 'Jipe' %} selected {% endif %}>Jipe</option>
+                        <option value="Picape" {% if carInfo.car_type == 'Picape' %} selected {% endif %}>Picape</option>
                     </select>
                 </div>
                 <div class="fields">
                     <h3>IPVA Pago?</h3>
                     <div class="ipva radio">
-                        <input type="radio" name="ipva" id="ISim" value="Sim" checked /><label for="ISim">Sim</label>
-                        <input type="radio" name="ipva" id="INão" value="Não" /><label for="INão">Não</label>
+                        <input type="radio" name="ipva" id="ISim" value="Sim" {% if carInfo.ipva == 'Sim' %} checked {% endif %}/><label for="ISim">Sim</label>
+                        <input type="radio" name="ipva" id="INão" value="Não" {% if carInfo.ipva == 'Não' %} checked {% endif %}/><label for="INão">Não</label>
                     </div>
                 </div>
                 <div class="fields">
                     <h3>Câmbio:</h3>
                     <select class="inptFormat" name="cambium" id="cambium">
-                        <option value="null" selected>--- SELECIONE O TIPO DO CÂMBIO ---</option>
-                        <option value="Automático">Automático</option>
-                        <option value="Automatizada de dupla embreagem">Automatizada de dupla embreagem</option>
-                        <option value="CVT">CVT</option>
-                        <option value="Mecânica">Mecânica/Manual</option>
-                        <option value="Semi-Automático">Semi-Automático</option>
+                        <option value="null">--- SELECIONE O TIPO DO CÂMBIO ---</option>
+                        <option value="Automático" {% if carInfo.cambium == 'Automático' %} selected {% endif %}>Automático</option>
+                        <option value="Automatizada de dupla embreagem" {% if carInfo.cambium == 'Automatizada de dupla embreagem' %} selected {% endif %}>Automatizada de dupla embreagem</option>
+                        <option value="CVT" {% if carInfo.cambium == 'CVT' %} selected {% endif %}>CVT</option>
+                        <option value="Mecânica" {% if carInfo.cambium == 'Mecânica' %} selected {% endif %}>Mecânica/Manual</option>
+                        <option value="Semi-Automático" {% if carInfo.cambium == 'Semi-Automático' %} selected {% endif %}>Semi-Automático</option>
                     </select>
                 </div>
                 <div class="fields">
                     <h3>Único Dono?</h3>
                     <div class="owner radio">
-                        <input type="radio" name="owner" id="OSim" value="Sim" checked /><label for="OSim">Sim</label>
-                        <input type="radio" name="owner" id="ONão" value="Não" /><label for="ONão">Não</label>
+                        <input type="radio" name="owner" id="OSim" value="Sim" {% if carInfo.owner == 'Sim' %} checked {% endif %}/><label for="OSim">Sim</label>
+                        <input type="radio" name="owner" id="ONão" value="Não" {% if carInfo.owner == 'Não' %} checked {% endif %}/><label for="ONão">Não</label>
                     </div>
             </div>
         </div>
@@ -125,13 +126,14 @@
     </div>
 
         <div class="card part2 form-hidden">
-            <h1>Cadastrando nova Venda</h1>
-            <h4>Perfeito, estamos chegando lá! Nesta parte, gostaríamos<br/>que você <b>descrevesse</b> mais sobre o seu veículo ...</h4>
+            <h1>Editando Anúncio para:</h1>
+            <span>{{ carInfo.carFabric }} </span><span>{{ carInfo.carName }}</span>
+            <h4>Gostaria de acrescentar ou reduzir algumas informações da descrição? Vá em frente:</h4>
             
             <div class="selling-items">
                 <h3>Descrição do Veículo:</h3>
                 <textarea name="description" id="description" cols="30" rows="10" maxlength="1500"
-                placeholder="Algumas dicas: Informar sobre a documentação, em dia ou atrasada, ser transparente e repassar detalhes positivos e negativos como: carro bem cuidado, interior impecável, ou então, informar sobre batidas/arranhões, - os famosos detalhes - caso houver, problemas na suspensão etc ... Max.(1500)"></textarea>
+                placeholder="Algumas dicas: Informar sobre a documentação, em dia ou atrasada, ser transparente e repassar detalhes positivos e negativos como: carro bem cuidado, interior impecável, ou então, informar sobre batidas/arranhões, - os famosos detalhes - caso houver, problemas na suspensão etc ... Max.(1500)">{{ carInfo.description }}</textarea>
                 
                 <h3>Itens:</h3>
                 <h4>Aqui você tem liberdade para escolher alguns itens que o seu carro<br/>possui e você pode adicionar todos os itens caso os tenha,<br/>mas não se esqueça de clicar no Botão <b>"+"</b> ao encontrar o item desejado:</h4>
@@ -174,9 +176,9 @@
         <!-- FORM DIVIDE (pt. 2 to pt. 3) --> 
 
         <div class="card part3 form-hidden">
-            <h1>Cadastrando nova Venda</h1>
-            <h4>Agora falta pouco 😁. Para deixarmos seu anúncio mais bonito,<br/>precisamos de algumas fotos do seu potente!
-            Seria interessante fotografar o<br/>interior e o exterior, além do mais, recomendamos cerca de 6 Fotos.</h4>
+            <h1>Editando Anúncio para:</h1>
+            <span>{{ carInfo.carFabric }} </span><span>{{ carInfo.carName }}</span>
+            <h4>Talvez você tenha se inspirado e tirado fotos mais artísticas e profissionais<br/>do seu carro, então, encorajamos você a mudar mesmo!!!</h4>
 
             <div class="border">
                 <input type="file" name="photos" id="photos" multiple accept="image/*" onchange="handleImage.startPreview(event)" />
@@ -201,8 +203,9 @@
         <!-- FORM DIVIDE (pt. 3 to pt. 4) --> 
 
         <div class="card part4 form-hidden">
-            <h1>Cadastrando nova Venda</h1>
-            <h4>Beleza, prometemos que esta é a última telinha antes de anunciarmos seu carrão!<br/>Nesta parte, gostariamos de informações de contato com você ... Indique para nós aonde seu carro<br/>encontra-se disponível para eventuais visitas e até concretização da venda,<br/>seu telefone, e claro, o preço do anúncio!</h4>
+            <h1>Editando Anúncio para:</h1>
+            <span>{{ carInfo.carFabric }} </span><span>{{ carInfo.carName }}</span>
+            <h4>Se mudou? Informou o endereço incorreto? Inseriu um preço errado?<br/>Sem problemas, faça suas mudanças:</h4>
 
             <div class="selling-info">
 
@@ -243,7 +246,7 @@
 
                 <div class="fields">
                     <h3>Preço do Anúncio:</h3>
-                    <input class="inptFormat" type="text" name="price" id="price" placeholder="O preço do seu veículo ..." onkeydown="formatInputValues.applyFormat(this, 'formatPrice')" />
+                    <input class="inptFormat" type="text" name="price" id="price" value="{{ carInfo.price }}" placeholder="O preço do seu veículo ..." onkeydown="formatInputValues.applyFormat(this, 'formatPrice')" />
                 </div>
 
                 <div class="dynamic-update">

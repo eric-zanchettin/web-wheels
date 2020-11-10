@@ -282,10 +282,10 @@ div button.sell {
 }
 
 .modal-overlay div {
-    width: 50%;
-    height: 50%;
+    width: 65%;
+    height: 65%;
     text-align: center;
-    margin: 12% auto;
+    margin: 8% auto;
 }
 
 .modal-overlay img {
@@ -312,4 +312,20 @@ div button.sell {
     background-color: white;;
 
     cursor: pointer;
+}
+
+form.edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+form.edit button {
+    font-weight: bolder;
+    font-size: 11pt;
+    color: white;
+    background-color: var(--primary-color);
+
+    padding: 6px;
+    border-radius: 20px;
+    margin-top: -12px;
 }

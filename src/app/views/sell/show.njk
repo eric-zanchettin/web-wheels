@@ -26,7 +26,16 @@
     <div class="card-master">
         <div class="sale-card">
             <div class="card-part1">
-                <h1>{{ carInfo.carFabric }} <span>{{ carInfo.carName}}</span></h1>
+                <form class="edit" method="GET" action="/sell/car/{{ carInfo.id }}/edit">
+                    <div>
+                        <h1>{{ carInfo.carFabric }} <span>{{ carInfo.carName}}</span></h1>
+                    </div>
+                    {% if session.userId == carInfo.user_id %}
+                    <div>
+                        <button type="submit">Editar</button>
+                    </div>
+                    {% endif %}
+                </form>
 
                 <div class="ord-itens">
                     <div>

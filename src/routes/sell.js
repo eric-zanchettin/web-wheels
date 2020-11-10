@@ -13,6 +13,10 @@ routes.post('/', onlyUsers, multer.array('photos', 6), SellValidator.sellPost, S
 
 // SHOW SELLING CAR
 
-routes.get('/car/:id', SellController.show);
+routes.get('/car/:id', SellValidator.show, SellController.show);
+
+// EDIT ADS
+
+routes.get('/car/:id/edit', onlyUsers, SellValidator.edit, SellController.editForm);
 
 module.exports = routes;

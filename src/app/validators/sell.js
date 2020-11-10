@@ -1,4 +1,5 @@
-let apiDB = require('../models/api');
+const apiDB = require('../models/api');
+const SellDB = require('../models/sell');
 
 module.exports = {
     async sellPost(req, res, next) {
@@ -24,6 +25,24 @@ module.exports = {
 
         if (plate_num < 0 || plate_num > 9) return res.send("We need only the final number of your car's plate");
 
+        next();
+    },
+
+    async show(req, res, next) {
+        const carAd = await SellDB.getAdById(req.params.id);
+
+        if (!carAd) return res.send('Ad not found!');
+
+        next();
+    },
+
+    async edit(req, res, next) {
+        const carAd = await SellDB.getAdById(req.params.id);
+
+        if (!carAd) return res.send('Ad not found!');
+
+        if (carAd.user_id != req.session.userId) return res.send("You are not allowed to edit someone's ad!");
+        
         next();
     },
 };
