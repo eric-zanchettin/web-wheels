@@ -82,8 +82,4 @@ module.exports = {
 
         return await res.json(info);
     },
-
-    infoTest(req, res) {
-        return res.render('users/test.njk');
-    },
 };

@@ -157,6 +157,13 @@ const handleImage = {
             event.preventDefault();
             return true;
         };
+
+        const photosDiv = document.querySelectorAll('.preview-images div')
+        if ((fileList.length + photosDiv.length) > uploadLimit) {
+            alert('Você já atingiu o limite máximo de fotos Enviadas!');
+            event.preventDefault();
+            return true;
+        };
     },
 
     updateFiles() {
@@ -194,6 +201,16 @@ const handleImage = {
         files.splice(index, 1);
         input.files = handleImage.updateFiles();
         
+        clickedImageDiv.remove();
+    },
+
+    removeOldPhoto(event) {
+        const clickedImageDiv = event.target.parentNode;
+        const clickedImageDivId = clickedImageDiv.id;
+        const removeFilesArray = document.querySelector('input[name="removed_files"]');
+
+        removeFilesArray.value += (removeFilesArray.value == '') ? (`${clickedImageDivId}`) : (`,${clickedImageDivId}`);
+
         clickedImageDiv.remove();
     },
 };
@@ -244,8 +261,8 @@ carsData.input.addEventListener('change', () => {
 const selectItens = document.querySelector('select[name="itens-select"]');
 const buttonAdd = document.querySelector('.add-box');
 const itensContainer = document.querySelector('.itens-container');
-const carItensInput = document.querySelector('input[name="itens_array"]')
-const carItens = [];
+let carItensInput = document.querySelector('input[name="itens_array"]')
+let carItens = carItensInput.value.split(',') || [];
 buttonAdd.addEventListener('click', () => {
     if (selectItens.selectedIndex == 0) {
         alert('OPÇÃO INVÁLIDA: Você deve escolher algum item para adicionar!');
@@ -265,7 +282,7 @@ buttonAdd.addEventListener('click', () => {
         actualItem = actualItem;
         carItensInput.value += actualItem;
     } else {
-        actualItemComma = `, ${actualItem}`;
+        actualItemComma = `,${actualItem}`;
         carItensInput.value += actualItemComma;
     };
 
@@ -273,9 +290,31 @@ buttonAdd.addEventListener('click', () => {
     if (pRemoval) pRemoval.remove();
 
     const itemContent = document.createElement('h5');
-    itemContent.innerHTML = actualItem;
+    itemContent.innerHTML = `${actualItem}<i class="material-icons remove-circle md-18" onclick="removeItens.remove(event)">remove_circle</i>`;
     itensContainer.appendChild(itemContent);
 });
+
+const removeItens = {
+    remove(event) {
+        let removeButtonValue = event.target.parentNode.innerHTML
+        removeButtonValue = removeButtonValue.substring(0, removeButtonValue.indexOf('<'));
+
+        if ((carItens.indexOf(removeButtonValue) + 1) < carItens.length) {
+            carItensInput.value = carItensInput.value.replace(`${removeButtonValue},`, '');
+        } else {
+            carItensInput.value = carItensInput.value.replace(`,${removeButtonValue}`, '');
+            carItensInput.value = carItensInput.value.replace(`${removeButtonValue}`, '');
+        };
+
+        carItens.splice(carItens.indexOf(removeButtonValue), 1);
+
+        this.removeElement(event.target);
+    },
+
+    removeElement(target) {
+        target.parentNode.remove();
+    },
+};
 
 const changedCep = {
     ask() {

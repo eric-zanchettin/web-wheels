@@ -27,4 +27,24 @@ module.exports = {
 
         return result.rows;
     },
+
+    async getPhotoById(photoId) {
+        let result = await db.query('SELECT * FROM car_photos WHERE id = $1', [photoId]);
+
+        return result.rows[0];
+    },
+
+    async deleteById(photoId) {
+        await db.query(`DELETE FROM car_photos
+        WHERE id = $1`, [photoId]);
+
+        return;
+    },
+
+    async deleteByAdId(adId) {
+        await db.query(`DELETE FROM car_photos
+        WHERE ad_id = $1`, [adId]);
+
+        return;
+    },
 };

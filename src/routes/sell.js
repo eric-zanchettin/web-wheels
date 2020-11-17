@@ -18,5 +18,7 @@ routes.get('/car/:id', SellValidator.show, SellController.show);
 // EDIT ADS
 
 routes.get('/car/:id/edit', onlyUsers, SellValidator.edit, SellController.editForm);
+routes.put('/car', onlyUsers, multer.array('photos', 6), SellValidator.put, SellController.put);
+routes.delete('/car', SellController.delete);
 
 module.exports = routes;

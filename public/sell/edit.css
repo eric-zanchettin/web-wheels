@@ -12,3 +12,44 @@
 .part1 span:nth-child(3), .part2 span:nth-child(3), .part3 span:nth-child(3), .part4 span:nth-child(3) {
     color: var(--primary-color)
 }
+
+.remove-circle {
+    color: rgb(255, 73, 73);
+
+    transition: 1s;
+}
+
+.remove-circle.md-18 {
+    font-size: 22px;
+}
+
+.remove-circle:hover {
+    cursor: pointer;
+    color: red;
+
+    transition: 1s;
+}
+
+form.del-form {
+    width: 120px;
+    height: auto;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+.dltBtn {
+    position: relative;
+    top: -20px;
+        
+    color: white;
+    background-color: rgb(255, 73, 73);
+    font-weight: bold;
+    border-radius: 20px;
+
+    margin-right: 20px;
+
+    padding: 5px;
+    margin: auto;
+}

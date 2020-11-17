@@ -29,7 +29,8 @@ module.exports = {
             city,
             complement,
             reference,
-            user_id
+            user_id,
+            phone
         ) VALUES (
             $1,
             $2,
@@ -37,10 +38,11 @@ module.exports = {
             $4,
             $5,
             $6,
-            $7
+            $7,
+            $8
         )`
 
-        let values = [data.cep, data.road, data.neighborhood, data.city, data.complement, data.reference, data.user_id];
+        let values = [data.cep, data.road, data.neighborhood, data.city, data.complement, data.reference, data.user_id, data.phone];
 
         await db.query(query, values);
 

@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    <form action="/sell" method="POST" enctype="multipart/form-data">
+    <form action="/sell/car?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="card part1">
             <h1>Editando Anúncio para:</h1>
             <span>{{ carInfo.carFabric }} </span><span>{{ carInfo.carName }}</span>
@@ -24,6 +24,7 @@
                     name="car_model"
                     id="car_model"
                     placeholder="{{ carInfo.car_model }}"
+                    value="{{ carInfo.car_model }}"
                     autocomplete="off"
                     disabled/>
                 </div>
@@ -60,6 +61,7 @@
                         <option value="null" >--- SELECIONE O ABASTECIMENTO ---</option>
                         <option value="Álcool" {% if carInfo.gas_type == 'Álcool' %} selected {% endif %}>Álcool</option>
                         <option value="Gasolina" {% if carInfo.gas_type == 'Gasolina' %} selected {% endif %}>Gasolina</option>
+                        <option value="Diesel" {% if carInfo.gas_type == 'Diesel' %} selected {% endif %}>Diesel</option>
                         <option value="Flex" {% if carInfo.gas_type == 'Flex' %} selected {% endif %}>Flex (Gasolina e Álcool)</option>
                         <option value="GNV" {% if carInfo.gas_type == 'GNV' %} selected {% endif %}>GNV (Gás Natural Veicular)</option>
                         <option value="Elétrico" {% if carInfo.gas_type == 'Elétrico' %} selected {% endif %}>Elétrico</option>
@@ -123,7 +125,7 @@
 
         <!-- FORM DIVIDE (pt. 1 to pt. 2) --> 
 
-    </div>
+        </div>
 
         <div class="card part2 form-hidden">
             <h1>Editando Anúncio para:</h1>
@@ -158,9 +160,12 @@
                         <option value="Rodas de Liga Leve">Rodas de Liga Leve</option>
                     </select>
                     <i class="material-icons add-box">add_box</i>
-                    <div class="itens-container"></div>
-                    <p id="removal">À medida que você for adicionando os Itens,<br/>os mesmos irão aparecer por aqui ...</p>
-                    <input type="hidden" name="itens_array" />
+                    <div class="itens-container">
+                        {% for item in carInfo.itens %}
+                            <h5>{{ item }}<i class="material-icons remove-circle md-18" onclick="removeItens.remove(event)">remove_circle</i></h5>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="itens_array" value="{{ carInfo.itens }}" />
                 </div>
             </div>
             <div class="arrows">
@@ -188,8 +193,15 @@
                 </div>
             </div>
             <div class="preview-images">
-                    
+                {% for photo in carPhotos %}
+                    <div id="{{ photo.id }}">
+                        <img src="{{ photo.path }}">
+                        <i class="material-icons" onclick="handleImage.removeOldPhoto(event)">clear</i>
+                    </div>
+                {% endfor %}
             </div>
+            <input type="hidden" name="removed_files" />
+            <input type="hidden" name="file_length" value="{{ carPhotos|length }}" />
             <div class="arrows">
                 <div class="previous">
                     <i class="material-icons" onclick="sellingForm.previousForm('3')">arrow_back</i>
@@ -255,7 +267,8 @@
                 </div>
 
                 <div>
-                    <button class="btn sell" type="submit" onclick="changedCep.ask()">Vender Agora</button>
+                    <input type="hidden" name="ad_id" value="{{ carInfo.id }}">
+                    <button class="btn sell" type="submit" onclick="changedCep.ask()">Alterar Dados</button>
                 </div>
 
             </div>
@@ -270,7 +283,22 @@
         </div>
     </form>
 
+    <form class="del-form" method="POST" action="/sell/car?_method=DELETE">
+        <input type="hidden" name="ad_id" value="{{ carInfo.id }}">
+        <button class="dltBtn" type="submit">Deletar Anúncio</button>
+    </form>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/carsData.js"></script>
+    <script>
+        const dltBtn = document.querySelector('.dltBtn');
+        dltBtn.addEventListener('click', () => {
+            const confirmation = confirm('Você tem certeza que deseja deletar este anúncio? Uma vez deletado, não poderemos desfazer a ação!');
+            if (!confirmation) {
+                event.preventDefault();
+                return;
+            };
+        });
+    </script>
 
 {% endblock %}

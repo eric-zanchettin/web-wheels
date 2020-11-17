@@ -1,5 +1,6 @@
 const { query } = require('../../../config/db');
 const db = require('../../../config/db');
+const { update } = require('./users');
 
 module.exports = {
     async getFabricators() {
@@ -81,5 +82,33 @@ module.exports = {
             WHERE CA.id = ${ad_id}
         `);
         return results.rows[0];
+    },
+
+    async update(data, adId) {
+        const keys = Object.keys(data);
+
+        let query = `UPDATE car_ads SET`
+
+        let comma = ',';
+        keys.map((key, index) => {
+            if (index == keys.length - 1) comma = '';
+
+            if (key != 'car_model') {
+                query += ` ${key} = '${data[key]}'${comma}`
+            };
+        });
+
+        query += ` WHERE id = ${adId}`
+
+        await db.query(query);
+
+        return;
+    },
+
+    async delete(id) {
+        await db.query(`DELETE FROM car_ads
+        WHERE id = $1`, [id]);
+
+        return;
     },
 };

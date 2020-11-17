@@ -3,6 +3,8 @@ const AddressDB = require('../models/address');
 const FileDB = require('../models/files');
 
 const utils = require('../../lib/utils');
+const { formatData } = require('../../lib/utils');
+const { unlinkSync } = require('fs');
 
 module.exports = {
     async sellPage(req, res) {
@@ -17,48 +19,15 @@ module.exports = {
     },
 
     async sellPost(req, res) {
-        let {
-            car_model, car_year, gas_type, car_type, cambium, color, km, plate_num, ipva, owner, description, itens_array, price,
-            cep, neighborhood, complement, phone, road, city, reference, updateOrNot,
-        } = req.body
+        let { cep, neighborhood, complement, phone, road, city, reference, updateOrNot, } = req.body;
 
         let files = req.files.map(file => {
             file.path = file.path.replace(/\\/g, '/');
             file.path = file.path.replace('public', '');
             return file;
         });
-        
-        km = km.replace(/\D/g, '');
-        price = price.replace(/\D/g, '');
-        
-        if (ipva == 'Sim') {
-            ipva = 1;
-        } else {
-            ipva = 0;
-        };
 
-        if (owner == 'Sim') {
-            owner = 1;
-        } else {
-            owner = 0;
-        };
-
-        sellingData = {
-            car_model,
-            car_year,
-            gas_type,
-            car_type,
-            cambium,
-            color,
-            km,
-            plate_num,
-            ipva,
-            owner,
-            description,
-            itens_array,
-            price,
-            user_id: req.session.userId,
-        };
+        let sellingData = utils.formatData.formatSellingData(req.body, req.session.userId);
         
         const ad_id = await SellDB.insert(sellingData, req.session.userId);
 
@@ -78,9 +47,18 @@ module.exports = {
                 road,
                 city,
                 reference,
+                user_id: req.session.userId,
+                phone
             };
 
-            AddressDB.update(updateData, req.session.userId);
+            const hasAdress = await AddressDB.findOne({ user_id: req.session.userId });
+
+            if (!hasAdress) {
+                AddressDB.insert(updateData);
+            } else {
+                AddressDB.update(updateData, req.session.userId);
+            };
+
         };
 
         return res.redirect(`/sell/car/${ad_id}`);
@@ -103,5 +81,63 @@ module.exports = {
         userAddress = utils.formatData.formatUserInfo(userAddress)
 
         return res.render('sell/editForm.njk', { carInfo, carPhotos, maxYear, userAddress });
+    },
+
+    async put(req, res) {
+        const { ad_id, removed_files } = req.body;
+
+        let sellingData = formatData.formatSellingData(req.body, req.session.userId);
+
+        try {
+            await SellDB.update(sellingData, ad_id);
+        } catch (err) {
+            console.log(err);
+            return res.send('DATABASE INTERNAL ERROR');
+        };
+
+        if (req.files.length > 0) {
+            let files = req.files.map(file => {
+                file.path = file.path.replace(/\\/g, '/');
+                file.path = file.path.replace('public', '');
+                return file;
+            });
+
+            for (file of files) {
+                try {
+                    await FileDB.insert(file, ad_id);
+                } catch (err) {
+                    console.log(err);
+                    return res.send('DATABASE INTERNAL ERROR');
+                };
+            };
+        };
+
+        let removedFiles = removed_files.split(',');
+
+        if (removed_files) {
+            for (removedFileId of removedFiles) {
+                let file = await FileDB.getPhotoById(removedFileId);
+                file.path = `public${file.path}`
+                await unlinkSync(file.path);
+                await FileDB.deleteById(removedFileId);
+            };
+        };
+
+        return res.redirect(`/sell/car/${ad_id}`)
+    },
+
+    async delete(req, res) {
+        const { ad_id } = req.body;
+
+        const files = await FileDB.getPhotosByAdId(ad_id);
+        for (file of files) {
+            file.path = `public${file.path}`;
+            await unlinkSync(file.path);
+        };
+
+        await FileDB.deleteByAdId(ad_id);
+        await SellDB.delete(ad_id)
+
+        return res.redirect('/');
     },
 };

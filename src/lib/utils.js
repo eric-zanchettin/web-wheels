@@ -32,11 +32,12 @@ const DateRelational = {
     },
 
     formatIso(date) {
-        const day = date.getUTCDate();
+        let day = date.getUTCDate();
         let month = (date.getUTCMonth()) + 1;
         const year = date.getUTCFullYear();
 
         month = String(month).length == 1 ? '0' + month : month;
+        day = String(day).length == 1 ? '0' + day : day;
 
         const iso = year + '-' + month + '-' + day;
 
@@ -72,6 +73,44 @@ const formatData = {
         return phone;
     },
 
+    formatSellingData(data, sessionUserId) {
+        let { car_model, car_year, gas_type, car_type, cambium, color, km, plate_num, ipva, owner, description, itens_array, price, } = data
+
+        km = km.replace(/\D/g, '');
+        price = price.replace(/\D/g, '');
+        
+        if (ipva == 'Sim') {
+            ipva = 1;
+        } else {
+            ipva = 0;
+        };
+
+        if (owner == 'Sim') {
+            owner = 1;
+        } else {
+            owner = 0;
+        };
+
+        sellingData = {
+            car_model,
+            car_year,
+            gas_type,
+            car_type,
+            cambium,
+            color,
+            km,
+            plate_num,
+            ipva,
+            owner,
+            description,
+            itens_array,
+            price,
+            user_id: sessionUserId,
+        };
+
+        return sellingData;
+    },
+
     formatAdInfo(adInfo) {
         let { car_model, km, itens_array, ipva, owner, price, } = adInfo;
         let carFabric = car_model.split(' ')[0];
@@ -97,6 +136,8 @@ const formatData = {
     },
 
     formatUserInfo(userInfo) {
+        if (!userInfo) return undefined;
+
         let { phone, cep } = userInfo;
 
         cep = formatData.formatCep(cep);
