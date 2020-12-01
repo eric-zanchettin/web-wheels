@@ -49,9 +49,109 @@ div.menu i {
 
 div.home-container {
     width: 100%;
-    height: 600px;
 
     margin: 48px 48px;
     border-radius: 60px;
 
+}
+
+div.more-access-ads {
+    display: grid;
+    grid-template-columns: 360px 360px 360px 360px 360px;
+
+    text-align: center;
+}
+
+div.more-access-ads div {
+    padding: 24px;
+    margin-left: 30px;
+
+    background-color: #f7f4f4;
+
+    border-radius: 50px;
+}
+
+div.more-access-ads div h1 {
+    font-size: 16pt;
+    margin: 6px 0;
+}
+
+div.more-access-ads img {
+    width: 200px;
+    height: 200px;
+
+    border-radius: 20px;
+
+    object-fit: cover;
+}
+
+div.more-access-ads div a {
+    color: black;
+    text-decoration: none;
+}
+
+div.more-access-ads div a.link {
+    text-decoration: none;
+    font-weight: bolder;
+    color: var(--primary-color);
+    
+    transition: 1s;
+}
+
+div.more-access-ads div a.link:hover {
+    color: blue;
+
+    transition: 1s;
+}
+
+div.search {
+    width: 100%;
+
+    margin: 36px auto;
+    text-align: center;
+}
+
+div.search h1 {
+    margin-bottom: 24px;
+}
+
+.search-inpt {
+    width: 30%;
+    height: 40px;
+
+    position: relative;
+    margin: auto;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 8px -0.5px rgba(0, 0, 0, 0.5);
+
+    text-align: center;
+    font-size: 12pt;
+
+    outline: none;
+}
+
+button.find-ads {
+    position: absolute;
+    right: 550px;
+
+    outline: none;
+
+    margin-top: 0px;
+    padding: 15px;
+
+    border-radius: 0px 20px 20px 0px;
+
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bolder;
+
+    transition: 1s;
+}
+
+button.find-ads:hover {
+    background-color: blue;
+
+    transition: 1s;
 }

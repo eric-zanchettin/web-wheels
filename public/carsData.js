@@ -9,7 +9,7 @@ const carsData = {
         };
     },
 
-    async filterCar(carName) {
+    async filterCar(carName, page) {
         if (carName == '' || carName == ' ') return;
 
         let search = this.allCars.filter(car => {
@@ -23,20 +23,27 @@ const carsData = {
             if (i >= 8) break;
         };
 
-        this.createSearchElement(searchLimit, carName);
+        this.createSearchElement(searchLimit, carName, page);
     },
 
-    createSearchElement(suggestions, carName) {
+    createSearchElement(suggestions, carName, page) {
         this.removeSearchElement();
         
         suggestionContainer = document.createElement('div');
         suggestionContainer.classList.add('suggestions');
         suggestionContainer.style.position = "absolute";
-        suggestionContainer.style.marginLeft = "-320px";
+        if (page == 'edit') {
+            suggestionContainer.style.marginLeft = '-320px';
+        } else {
+            suggestionContainer.style.marginLeft = '230px';
+        };
         this.carNameContainer.appendChild(suggestionContainer)
         for (suggestion of suggestions) {
             let divSugg = document.createElement('div');
             divSugg.classList.add('sugg')
+            if (page == 'home') {
+                divSugg.style.width = '560px';
+            };
             let sugg = document.createElement('p');
             sugg.innerHTML = suggestion.replace(`${carName}`, `<b>${carName}</b>`);
             divSugg.appendChild(sugg);
@@ -218,6 +225,9 @@ const handleImage = {
 carsData.getData();
 
 carsData.input.addEventListener('change', () => {
+    if (carsData.carNameContainer.classList[0] == 'search') return;
+    console.log(carsData.carNameContainer.classList)
+
     let removeValidator = document.querySelector('.car-valid');
     if (removeValidator) removeValidator.remove();
     
@@ -261,7 +271,7 @@ carsData.input.addEventListener('change', () => {
 const selectItens = document.querySelector('select[name="itens-select"]');
 const buttonAdd = document.querySelector('.add-box');
 const itensContainer = document.querySelector('.itens-container');
-let carItensInput = document.querySelector('input[name="itens_array"]')
+let carItensInput = document.querySelector('input[name="itens_array"]');
 let carItens = carItensInput.value.split(',') || [];
 buttonAdd.addEventListener('click', () => {
     if (selectItens.selectedIndex == 0) {

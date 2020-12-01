@@ -28,8 +28,13 @@ module.exports = {
         return result.rows;
     },
 
-    async getPhotoById(photoId) {
-        let result = await db.query('SELECT * FROM car_photos WHERE id = $1', [photoId]);
+    async getPhotoById(ad_id) {
+        let result = await db.query(`SELECT
+        *
+        FROM car_photos
+        WHERE ad_id = $1
+        LIMIT 1
+        `, [ad_id]);
 
         return result.rows[0];
     },

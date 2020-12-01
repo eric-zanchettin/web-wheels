@@ -2,22 +2,26 @@ const { DateRelational } = require('../../lib/utils');
 const UserDB = require('../models/users');
 const AddressDB = require('../models/address');
 const { hash } = require('bcryptjs');
+const { formatData } = require('../../lib/utils');
 
 module.exports = {
     async show(req, res) {
-        const userData = await UserDB.findOne({id: req.session.userId});
+        let userData = await UserDB.findOne({id: req.session.userId});
 
         const userInfo = {
             ...userData,
+            cpf_cnpj: formatData.formatCpfCnpj(userData.cpf_cnpj),
             nickname: userData.name.substring(0, userData.name.indexOf(' ')),
             birth_dateIso: DateRelational.formatIso(userData.birth_date),
         };
 
-        const userAddress = await AddressDB.findOne({user_id: req.session.userId});
+        let userAddress = await AddressDB.findOne({user_id: req.session.userId});
 
-        let post = false
-        if (!userAddress) {
-            post = true;
+        let post = true;
+        if (userAddress) {
+            post = false;
+
+            userAddress.cep = formatData.formatCep(userAddress.cep);
         };
 
         return res.render('users/profile.njk', { userInfo, userAddress, post });

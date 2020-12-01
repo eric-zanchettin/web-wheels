@@ -1,6 +1,4 @@
-const { query } = require('../../../config/db');
 const db = require('../../../config/db');
-const { update } = require('./users');
 
 module.exports = {
     async getFabricators() {
@@ -84,6 +82,16 @@ module.exports = {
         return results.rows[0];
     },
 
+    async getTopAds() {
+        const results = await db.query(`SELECT
+        *
+        FROM car_ads
+        ORDER BY access DESC
+        LIMIT 5`);
+
+        return results.rows;
+    },
+
     async update(data, adId) {
         const keys = Object.keys(data);
 
@@ -108,6 +116,20 @@ module.exports = {
     async delete(id) {
         await db.query(`DELETE FROM car_ads
         WHERE id = $1`, [id]);
+
+        return;
+    },
+
+    async upAccess(adId) {
+        let accessQt = (await db.query(`SELECT access FROM car_ads WHERE id = $1`, [adId])).rows[0]['access'];
+        
+        let query = `UPDATE car_ads SET access = $1 WHERE id = $2`;
+        let values = [
+            Number(accessQt) + 1,
+            adId
+        ];
+
+        db.query(query, values);
 
         return;
     },

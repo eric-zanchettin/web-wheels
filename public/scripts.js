@@ -201,3 +201,19 @@ const controlCarousel = {
         this.modalOverlay.style.display = 'none';
     },
 };
+
+const sortSearch = {
+    sortInput: document.querySelector('input[name="sort"]'),
+    form: document.querySelector('.filter-form'),
+    applyToForm(event) {
+        const eventValue = event.options[event.selectedIndex].value;
+
+        this.sortInput.value = eventValue;
+
+        this.forceSubmit()
+    },
+
+    forceSubmit() {
+        this.form.submit();
+    },
+};

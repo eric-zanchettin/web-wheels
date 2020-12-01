@@ -74,6 +74,7 @@ CREATE TABLE car_ads (
   itens TEXT,
   price INT,
   user_id INT,
+  access INT NOT NULL DEFAULT(0),
   CONSTRAINT fk_user_id
     FOREIGN KEY(user_id)
       REFERENCES users(id)

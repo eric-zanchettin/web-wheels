@@ -69,6 +69,10 @@ module.exports = {
         let carPhotos = await FileDB.getPhotosByAdId(req.params.id);
         let carInfo = utils.formatData.formatAdInfo(carAd);
 
+        if (carAd.user_id != req.session.userId) {
+            await SellDB.upAccess(req.params.id);
+        };
+
         return res.render('sell/show.njk', { carInfo, carPhotos });
     },
 

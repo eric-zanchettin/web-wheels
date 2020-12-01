@@ -8,8 +8,29 @@
 
 {% block content %}
 
-    <div class="home-container">
-        <h1>Mais Pesquisados</h1>
+    <div class="search car-name">
+        <form action="/find" method="GET">
+            <h1>Pesquisar</h1>
+            <i class="material-icons">search</i><input class="search-inpt" type="text" name="car_model" autocomplete="off" onkeyup="carsData.filterCar(this.value, 'home')" />
+            <button type="submit" class="find-ads">Encontrar Anúncios</button>
+        </form>
     </div>
+
+    <div class="home-container">
+        <h1>Mais Acessados</h1>
+    </div>
+
+    <div class="more-access-ads">
+        {% for ad in topAdsWithFiles %}
+            <div>
+                <a href="/sell/car/{{ ad.id }}"><img src="{{ ad.file.path }}" alt="{{ ad.file.file_name }}">
+                <h1>{{ ad.car_model }}</h1></a>
+                <a class="link" href="/sell/car/{{ ad.id }}">Ver Anúncio</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/carsData.js"></script>
 
 {% endblock %}

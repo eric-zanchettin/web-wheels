@@ -14,5 +14,6 @@ routes.use('/api', api);
 // HOME
 
 routes.get('/', HomeController.home);
+routes.get('/find/?', HomeController.find);
 
 module.exports = routes;

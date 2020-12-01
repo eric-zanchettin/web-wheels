@@ -1,0 +1,149 @@
+.search-info {
+    text-align: center;
+
+    margin: 32px 0;
+}
+
+.search-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.filters {
+    padding: 16px;
+    text-align: center;
+    position: sticky;
+}
+
+.filter-fields-border {
+    padding: 16px;
+
+    border-bottom: 2px solid rgba(0, 0, 0 , 0.3);
+}
+
+.filter-fields1 {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.filter-fields2 div {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filter-fields2 input {
+    width: 30%;
+    height: 20px;
+    text-align: center;
+
+    border: 2px solid var(--primary-color);
+}
+
+.inpt-filter {
+    width: 80%;
+    height: 40px;
+
+    position: relative;
+    margin: auto;
+
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    box-shadow: 0.5px 0.5px 8px -0.5px rgba(0, 0, 0, 0.5);
+
+    text-align: center;
+    font-size: 12pt;
+
+    outline: none;
+}
+
+.cars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    background-color: #f0f0f0;
+}
+
+.car-card {
+    margin: 30px;
+    width: 350px;
+    height: 380px;
+
+    background-color: #f0f0f0;
+    border-radius: 20px;
+
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.car-card h1, .car-card span {
+    margin-left: 12px;
+    font-size: 12pt;
+    color: black;
+}
+
+.car-card a {
+    text-decoration: none;
+}
+
+.car-card h1 {
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 12px 0 24px 12px;
+}
+
+.car-card span {
+    font-size: 20pt;
+    font-weight: bolder;
+}
+
+div.car-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-info h6 {
+    margin: 8px 12px 12px 12px;
+    color: #919191;
+}
+
+.car-location {
+    display: flex;
+    align-items: flex-start;
+
+    margin: -8px 6px;
+
+    font-size: 11pt;
+}
+
+.car-location p {
+    margin: 4px 0;
+}
+
+.car-card img {
+    width: 100%;
+    height: 250px;
+
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.submit {
+    margin-top: 8px;
+    padding: 8px;
+
+    border-radius: 20px;
+
+    color: white;
+    background-color: var(--primary-color);
+    font-weight: bolder;
+    
+    transition: 0.5s;
+}
+
+.submit:hover {
+    background-color: blue;
+    cursor: pointer;
+
+    transition: 0.5s;
+}

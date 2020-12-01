@@ -67,6 +67,16 @@ const formatData = {
         return cep;
     },
 
+    formatCpfCnpj(cpfCnpj) {
+        if (cpfCnpj.length == 11) {
+            cpfCnpj = cpfCnpj.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        } else {
+            cpfCnpj = cpfCnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+        };
+        
+        return cpfCnpj;
+    },
+
     formatPhone(phone) {
         phone = phone.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
 

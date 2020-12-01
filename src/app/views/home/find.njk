@@ -1,0 +1,128 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>WebWheels - Pesquisa: {% if filters.car_model == '' %} Toda a WebWheels {% else %} {{ filters.car_model }} {% endif %}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="search-info">
+        <h1>Pesquisando por: {% if filters.car_model == '' %} Toda a WebWheels {% else %} {{ filters.car_model }} {% endif %}</h1>
+        <br/>
+        <div class="search car-name">
+            <form action="/find" method="GET">
+                <i class="material-icons">search</i><input class="search-inpt" type="text" name="car_model" autocomplete="off" onkeyup="carsData.filterCar(this.value, 'home')" />
+                <button type="submit" class="find-ads">Encontrar Anúncios</button>
+            </form>
+        </div>
+        <br/>
+        <select name="sort" id="sort" onchange="sortSearch.applyToForm(this)">
+            <option value="access">Mais Relevantes</option>
+            <option value="max-price" {% if filters.sort == 'max-price' %} selected {% endif %}>Maior Preço</option>
+            <option value="min-price" {% if filters.sort == 'min-price' %} selected {% endif %}>Menor Preço</option>
+        </select>
+    </div>
+
+    <div class="search-container">
+        <div class="filters">
+            <h1>Filtros</h1>
+            <form class="filter-form"  action="" method="GET">
+                <div class="filter-fields1 filter-fields-border">
+                    <h3>Localização</h3>
+                    <input class="inpt-filter" type="text" name="city" id="city" value="{{ filters.city }}" placeholder="Ex: São Paulo - SP" />
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Ano</h3>
+                    <div>
+                        <input type="text" name="from_caryear" id="fromcaryear" placeholder="De" value="{{ filters.from_caryear }}">
+                        <input type="text" name="until_caryear" id="untilcaryear" placeholder="Até" value="{{ filters.until_caryear }}">
+                    </div>
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Km</h3>
+                    <div>
+                        <input type="text" name="from_km" id="fromkm" placeholder="De" value="{{ filters.from_km }}">
+                        <input type="text" name="until_km" id="untilkm" placeholder="Até" value="{{ filters.until_km }}">
+                    </div>
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Preço</h3>
+                    <div>
+                        <input type="text" name="from_price" id="fromprice" placeholder="De" value="{{ filters.from_price }}">
+                        <input type="text" name="until_price" id="untilprice" placeholder="Até" value="{{ filters.until_price }}">
+                    </div>
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Carroceria</h3>
+                    <div>
+                        <select name="car_type" id="car_type">
+                            <option value="">Todos</option>
+                            {% for carType in noRepeatParams.carType %}
+                                <option {% if carType == filters.car_type %} selected {% endif %} value="{{ carType }}">{{ carType }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Câmbio</h3>
+                    <div>
+                        <select name="cambium" id="cambium">
+                            <option value="">Todos</option>
+                            {% for cambium in noRepeatParams.cambium %}
+                                <option {% if cambium == filters.cambium %} selected {% endif %} value="{{ cambium }}">{{ cambium }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Combustível</h3>
+                    <div>
+                        <select name="gas_type" id="gas_type">
+                            <option value="">Todos</option>
+                            {% for gasType in noRepeatParams.gasType %}
+                                <option {% if gasType == filters.gas_type %} selected {% endif %} value="{{ gasType }}">{{ gasType }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-fields2 filter-fields-border">
+                    <h3>Cor</h3>
+                    <div>
+                        <select name="color" id="color">
+                            <option value="">Todos</option>
+                            {% for color in noRepeatParams.color %}
+                                <option {% if color == filters.color %} selected {% endif %} value="{{ color }}">{{ color }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <button class="submit" type="submit">Filtrar</button>
+                <input type="hidden" name="car_model" value="{{ filters.car_model }}">
+                <input type="hidden" name="sort" value="access" />
+            </form>
+        </div>
+        <div class="cars-grid">
+            {% for car in carInfoWithFiles %}
+                <div class="car-card">
+                    <a href="/sell/car/{{ car.id }}">
+                        <img src="{{ car.file.path }}" alt="{{ car.file.file_name }}" />
+                        <div class="car-info">
+                            <h1>{{ car.car_model }}</h1>
+                            <span>{{ car.price }}</span>
+                            <div class="car-detail">
+                                <h6>{{ car.car_year }} </h6>
+                                <h6>{{ car.km }}</h6>
+                            </div>
+                            <div class="car-location">
+                                <i class="material-icons">location_on</i><p>{{ car.city }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/carsData.js"></script>
+
+{% endblock %}
